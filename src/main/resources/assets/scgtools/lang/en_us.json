@@ -1,0 +1,13 @@
+{
+  "itemGroup.scgtools": "Example Mod Tab",
+  "block.scgtools.example_block": "Example Block",
+  "item.scgtools.example_item": "Example Item",
+
+  "scgtools.configuration.title": "SCG Tools Configs",
+  "scgtools.configuration.section.scgtools.common.toml": "SCG Tools Configs",
+  "scgtools.configuration.section.scgtools.common.toml.title": "SCG Tools Configs",
+  "scgtools.configuration.items": "Item List",
+  "scgtools.configuration.logDirtBlock": "Log Dirt Block",
+  "scgtools.configuration.magicNumberIntroduction": "Magic Number Text",
+  "scgtools.configuration.magicNumber": "Magic Number"
+}

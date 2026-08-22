@@ -4,17 +4,26 @@ import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.components.ToolLevelData;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.component.Weapon;
+import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.item.enchantment.Repairable;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class EvolvingPicaxe extends Item {
@@ -75,16 +84,37 @@ public class EvolvingPicaxe extends Item {
         }
     }
     
+    public static void applyTier(ItemStack stack, ToolTier tier, Level level) {
+        ToolMaterial mat = tier.getMaterial();
+        HolderGetter<Block> blocks = level.registryAccess().lookupOrThrow(Registries.BLOCK);
+        HolderGetter<Item> items = level.registryAccess().lookupOrThrow(Registries.ITEM);
+        
+        stack.set(DataComponents.TOOL, new Tool(
+            List.of(
+                Tool.Rule.deniesDrops(blocks.getOrThrow(mat.incorrectBlocksForDrops())),
+                Tool.Rule.minesAndDrops(blocks.getOrThrow(BlockTags.MINEABLE_WITH_PICKAXE), mat.speed())
+            ), 1.0F, 1, true
+        ));
+        
+        stack.set(DataComponents.WEAPON, new Weapon(2, 0f));
+        stack.set(DataComponents.ENCHANTABLE, new Enchantable(mat.enchantmentValue()));
+        stack.set(DataComponents.REPAIRABLE, new Repairable(items.getOrThrow(mat.repairItems())));
+        stack.set(DataComponents.ITEM_MODEL, tier.getModelId());
+        
+        stack.set(ModDataComponents.TOOL_TIER.get(), tier);
+        recalculateMaxDamage(stack);
+    }
+    
     private int xpForNextLevel(int level) {
         return 2 * (level + 1);
     }
     
-    private void recalculateMaxDamage(ItemStack stack) {
+    private static void recalculateMaxDamage(ItemStack stack) {
         ToolTier tier = stack.get(ModDataComponents.TOOL_TIER.get());
         ToolLevelData level = stack.get(ModDataComponents.TOOL_LEVEL.get());
         if (tier == null || level == null) return;
         
-        int maxDamage = tier.getBaseDurability() + (50 * tier.getDurabilityMultiplier() * level.level());
+        int maxDamage = tier.getMaterial().durability() + (50 * tier.getDurabilityMultiplier() * level.level());
         
         stack.set(DataComponents.MAX_DAMAGE, maxDamage);
     }

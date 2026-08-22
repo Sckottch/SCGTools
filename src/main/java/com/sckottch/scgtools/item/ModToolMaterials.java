@@ -1,6 +1,7 @@
 package com.sckottch.scgtools.item;
 
 import com.sckottch.scgtools.SCGTools;
+import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
@@ -16,7 +17,7 @@ public class ModToolMaterials {
     
     public static final ToolMaterial FLINT_MATERIAL = new ToolMaterial(
         BlockTags.INCORRECT_FOR_STONE_TOOL,
-        120,
+        ToolTier.FLINT.getBaseDurability(),
         5f,
         1f,
         5,

@@ -1,7 +1,10 @@
 package com.sckottch.scgtools.item;
 
 import com.sckottch.scgtools.SCGTools;
+import com.sckottch.scgtools.components.ModDataComponents;
+import com.sckottch.scgtools.components.ToolLevelData;
 import com.sckottch.scgtools.item.tools.EvolvingPicaxe;
+import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -17,16 +20,18 @@ public class ModItems {
         props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
     );
     
-    public static final DeferredItem<EvolvingPicaxe> FLINT_PICKAXE = ITEMS.registerItem(
-        "flint_pickaxe",
+    public static final DeferredItem<EvolvingPicaxe> PICKAXE = ITEMS.registerItem(
+        "pickaxe",
         props -> new EvolvingPicaxe(
             props.pickaxe(ModToolMaterials.FLINT_MATERIAL, 1, -2.8f)
+                .component(ModDataComponents.TOOL_LEVEL.get(), ToolLevelData.INITIAL)
+                .component(ModDataComponents.TOOL_TIER.get(), ToolTier.FLINT)
         )
     );
     
     public static final List<DeferredItem<? extends Item>> DISPLAY_ORDER = List.of(
         MENDING_GEM,
-        FLINT_PICKAXE
+        PICKAXE
     );
     
     public static void register(IEventBus modEventBus) {

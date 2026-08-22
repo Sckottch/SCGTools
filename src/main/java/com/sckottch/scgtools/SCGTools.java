@@ -1,5 +1,6 @@
 package com.sckottch.scgtools;
 
+import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.item.ModItems;
 import org.slf4j.Logger;
 
@@ -21,6 +22,7 @@ public class SCGTools {
         
         ModItems.register(modEventBus);
         ModCreativeTab.register(modEventBus);
+        ModDataComponents.register(modEventBus);
         
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

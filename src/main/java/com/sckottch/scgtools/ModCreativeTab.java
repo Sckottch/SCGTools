@@ -28,19 +28,17 @@ public class ModCreativeTab {
         );
     
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SCGTOOLS_TOOLS_TAB =
-        CREATIVE_TABS.register("scgtools_tab_tools", () -> {
-                return CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.scgtools.tools"))
-                    .icon(() -> new ItemStack(ModItems.PICKAXE.get()))
-                    .displayItems((params, out) -> {
-                        for (ToolTier tier : ToolTier.values()) {
-                            ItemStack stack = new ItemStack(ModItems.PICKAXE.get());
-                            EvolvingPicaxe.applyTier(stack, tier, params.holders());
-                            out.accept(stack);
-                        }
-                    })
-                    .build();
-            }
+        CREATIVE_TABS.register("scgtools_tab_tools", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.scgtools.tools"))
+            .icon(() -> new ItemStack(ModItems.PICKAXE.get()))
+            .displayItems((params, out) -> {
+                for (ToolTier tier : ToolTier.values()) {
+                    ItemStack stack = new ItemStack(ModItems.PICKAXE.get());
+                    if (stack.getItem() instanceof EvolvingPicaxe pickaxe) pickaxe.applyTier(stack, tier, params.holders());
+                    out.accept(stack);
+                }
+            })
+            .build()
         );
     
     public static void register(IEventBus eventBus) {

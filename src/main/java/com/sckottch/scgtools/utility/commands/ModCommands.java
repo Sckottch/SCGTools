@@ -6,13 +6,12 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.components.ToolLevelData;
-import com.sckottch.scgtools.item.tools.EvolvingPicaxe;
+import com.sckottch.scgtools.item.tools.EvolvingTool;
 import com.sckottch.scgtools.item.tools.upgrades.ToolUpgrade;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,14 +61,14 @@ public class ModCommands {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         ItemStack stack = player.getMainHandItem();
         
-        if (!(stack.getItem() instanceof EvolvingPicaxe)) {
+        if (!(stack.getItem() instanceof EvolvingTool tool)) {
             ctx.getSource().sendFailure(
                 Component.literal("Hold a SCG Tool in your main hand to perform this command")
             );
             return 0;
         }
         
-        EvolvingPicaxe.applyTier(stack, tier, player.level().registryAccess());
+        tool.applyTier(stack, tier, player.level().registryAccess());
         
         ctx.getSource().sendSuccess(
             () -> Component.literal("Changed weapon tier to: " + tier.getDisplayName()), true
@@ -81,7 +80,7 @@ public class ModCommands {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         ItemStack stack = player.getMainHandItem();
         
-        if (!(stack.getItem() instanceof EvolvingPicaxe)) {
+        if (!(stack.getItem() instanceof EvolvingTool tool)) {
             ctx.getSource().sendFailure(
                 Component.literal("Hold a SCG Tool in your main hand to perform this command")
             );
@@ -94,8 +93,7 @@ public class ModCommands {
             return 0;
         }
         
-        stack.remove(DataComponents.ITEM_MODEL);
-        EvolvingPicaxe.applyTier(stack, tier, player.level().registryAccess());
+        tool.applyTier(stack, tier, player.level().registryAccess());
         
         ctx.getSource().sendSuccess(() -> Component.literal("Tool Updated"), true);
         return 1;
@@ -105,7 +103,7 @@ public class ModCommands {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         ItemStack stack = player.getMainHandItem();
         
-        if (!(stack.getItem() instanceof EvolvingPicaxe)) {
+        if (!(stack.getItem() instanceof EvolvingTool)) {
             ctx.getSource().sendFailure(
                 Component.literal("Hold a SCG Tool in your main hand to perform this command")
             );

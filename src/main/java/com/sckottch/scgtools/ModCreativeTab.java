@@ -1,7 +1,6 @@
 package com.sckottch.scgtools;
 
 import com.sckottch.scgtools.item.ModItems;
-import com.sckottch.scgtools.item.tools.EvolvingPicaxe;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -34,7 +33,7 @@ public class ModCreativeTab {
             .displayItems((params, out) -> {
                 for (ToolTier tier : ToolTier.values()) {
                     ItemStack stack = new ItemStack(ModItems.PICKAXE.get());
-                    if (stack.getItem() instanceof EvolvingPicaxe pickaxe) pickaxe.applyTier(stack, tier, params.holders());
+                    ModItems.PICKAXE.get().applyTier(stack, tier, params.holders());
                     out.accept(stack);
                 }
             })

@@ -1,12 +1,10 @@
 package com.sckottch.scgtools.utility.enums;
 
 import com.mojang.serialization.Codec;
-import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.item.ModToolMaterials;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ToolMaterial;
@@ -49,9 +47,6 @@ public enum ToolTier implements StringRepresentable {
     }
     public ToolMaterial getMaterial() {
         return material;
-    }
-    public Identifier getModelId() {
-        return Identifier.fromNamespaceAndPath(SCGTools.MODID, "pickaxe_" + this.getSerializedName());
     }
     
     public static final Codec<ToolTier> CODEC = StringRepresentable.fromEnum(ToolTier::values);

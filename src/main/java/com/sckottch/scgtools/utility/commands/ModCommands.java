@@ -12,6 +12,7 @@ import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +33,7 @@ public class ModCommands {
         
         for (ToolTier tier : ToolTier.values()) {
             tierNode.then(
-                Commands.literal(tier.getDisplayName())
+                Commands.literal(tier.getSerializedName())
                     .executes(ctx -> setTier(ctx, tier))
             );
         }
@@ -93,6 +94,7 @@ public class ModCommands {
             return 0;
         }
         
+        stack.remove(DataComponents.ITEM_MODEL);
         EvolvingPicaxe.applyTier(stack, tier, player.level().registryAccess());
         
         ctx.getSource().sendSuccess(() -> Component.literal("Tool Updated"), true);

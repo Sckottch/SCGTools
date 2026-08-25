@@ -2,8 +2,10 @@ package com.sckottch.scgtools.datagen;
 
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.item.ModItems;
+import com.sckottch.scgtools.item.ModToolMaterials;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.references.ItemIds;
 import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
@@ -17,5 +19,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(ItemTags.PICKAXES).add(ModItems.PICKAXE.getKey());
+        tag(ModToolMaterials.FLINT_REPAIR_ITEMS).add(ItemIds.FLINT);
     }
 }

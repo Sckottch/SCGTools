@@ -1,0 +1,26 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/pickaxe_flint"
+        },
+        "when": "flint"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/pickaxe_iron"
+        },
+        "when": "iron"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "scgtools:item/pickaxe_flint"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

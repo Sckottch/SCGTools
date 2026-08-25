@@ -1,7 +1,6 @@
 package com.sckottch.scgtools.item.tools.upgrades;
 
 import com.sckottch.scgtools.utility.enums.ToolTier;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class ToolUpgrade {

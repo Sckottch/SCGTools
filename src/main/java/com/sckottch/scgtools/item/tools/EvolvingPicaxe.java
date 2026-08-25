@@ -7,7 +7,6 @@ import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -17,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.Weapon;
@@ -121,7 +121,7 @@ public class EvolvingPicaxe extends Item {
         stack.set(DataComponents.WEAPON, new Weapon(2, 0f));
         stack.set(DataComponents.ENCHANTABLE, new Enchantable(mat.enchantmentValue()));
         stack.set(DataComponents.REPAIRABLE, new Repairable(items.getOrThrow(mat.repairItems())));
-        stack.set(DataComponents.ITEM_MODEL, tier.getModelId());
+        stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(tier.getSerializedName()), List.of()));
         
         if (!stack.has(DataComponents.ENCHANTMENTS)) {
             stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);

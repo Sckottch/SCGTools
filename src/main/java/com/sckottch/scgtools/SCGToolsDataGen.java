@@ -1,6 +1,8 @@
 package com.sckottch.scgtools;
 
 import com.sckottch.scgtools.datagen.ModItemTagsProvider;
+import com.sckottch.scgtools.datagen.ModModelProvider;
+import com.sckottch.scgtools.datagen.ModRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -19,5 +21,7 @@ public class SCGToolsDataGen {
         PackOutput output = generator.getPackOutput();
         
         generator.addProvider(true, new ModItemTagsProvider(output, lookup));
+        generator.addProvider(true, new ModModelProvider(output));
+        generator.addProvider(true, new ModRecipeProvider.Runner(output, lookup));
     }
 }

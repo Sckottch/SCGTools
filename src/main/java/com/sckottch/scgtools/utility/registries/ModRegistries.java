@@ -1,7 +1,6 @@
 package com.sckottch.scgtools.utility.registries;
 
 import com.sckottch.scgtools.SCGTools;
-import com.sckottch.scgtools.item.ModItems;
 import com.sckottch.scgtools.item.tools.upgrades.ToolUpgrade;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;

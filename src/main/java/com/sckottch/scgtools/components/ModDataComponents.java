@@ -29,7 +29,7 @@ public class ModDataComponents {
     
     public static final Supplier<DataComponentType<ToolTier>> TOOL_TIER =
         DATA_COMPONENTS.registerComponentType("tool_tier",
-            buider -> buider
+            builder -> builder
                 .persistent(ToolTier.CODEC)
                 .networkSynchronized(ToolTier.STREAM_CODEC)
         );

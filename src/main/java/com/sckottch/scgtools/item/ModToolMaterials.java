@@ -1,14 +1,12 @@
 package com.sckottch.scgtools.item;
 
 import com.sckottch.scgtools.SCGTools;
-import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
 
 public class ModToolMaterials {

@@ -37,6 +37,7 @@ public class ModXpHandler {
         
         stack.setDamageValue(damage - repaired);
         
-        int leftover = xpAvailable - xpUsed;
+        // reduzir o valor do orbe deixa o fluxo vanilla seguir: ele entrega o resto ao jogador e descarta o orbe
+        orb.setValue(xpAvailable - xpUsed);
     }
 }

@@ -1,6 +1,7 @@
 {
-    "itemGroup.scgtools": "SCG Tools",
+    "itemGroup.scgtools.items": "SCG Tools Items",
 
     "item.scgtools.mending_gem": "Mending Gem",
-    "item.scgtools.pickaxe": "Pickaxe"
+    "item.scgtools.pickaxe": "Pickaxe",
+    "itemGroup.scgtools.tools": "SCGTools Tools"
 }

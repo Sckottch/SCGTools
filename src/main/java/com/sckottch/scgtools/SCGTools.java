@@ -2,6 +2,7 @@ package com.sckottch.scgtools;
 
 import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.item.ModItems;
+import com.sckottch.scgtools.item.tools.upgrades.ModUpgrades;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -23,6 +24,7 @@ public class SCGTools {
         ModItems.register(modEventBus);
         ModCreativeTab.register(modEventBus);
         ModDataComponents.register(modEventBus);
+        ModUpgrades.register(modEventBus);
         
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

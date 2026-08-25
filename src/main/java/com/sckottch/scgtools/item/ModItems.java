@@ -26,12 +26,12 @@ public class ModItems {
             props.pickaxe(ModToolMaterials.FLINT_MATERIAL, 1, -2.8f)
                 .component(ModDataComponents.TOOL_LEVEL.get(), ToolLevelData.INITIAL)
                 .component(ModDataComponents.TOOL_TIER.get(), ToolTier.FLINT)
+                .component(ModDataComponents.TOOL_UPGRADES.get(), List.of())
         )
     );
     
     public static final List<DeferredItem<? extends Item>> DISPLAY_ORDER = List.of(
-        MENDING_GEM,
-        PICKAXE
+        MENDING_GEM
     );
     
     public static void register(IEventBus modEventBus) {

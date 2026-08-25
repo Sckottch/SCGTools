@@ -2,9 +2,12 @@ package com.sckottch.scgtools.item.tools;
 
 import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.components.ToolLevelData;
+import com.sckottch.scgtools.item.tools.upgrades.ToolUpgrade;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -17,8 +20,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.Weapon;
-import net.minecraft.world.item.enchantment.Enchantable;
-import net.minecraft.world.item.enchantment.Repairable;
+import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,6 +40,7 @@ public class EvolvingPicaxe extends Item {
                                 Consumer<Component> builder, TooltipFlag tooltipFlag) {
         ToolTier tier = itemStack.get(ModDataComponents.TOOL_TIER.get());
         ToolLevelData level = itemStack.get(ModDataComponents.TOOL_LEVEL.get());
+        List<ToolUpgrade> upgrades = itemStack.get(ModDataComponents.TOOL_UPGRADES.get());
         
         if (tier != null) {
             builder.accept(Component.literal("Tier: " + tier.getDisplayName()));
@@ -50,7 +53,18 @@ public class EvolvingPicaxe extends Item {
                 builder.accept(Component.literal("Lv: " + level.level() + " (XP: " + level.xp() + ")"));
             }
         }
+        
         super.appendHoverText(itemStack, context, display, builder, tooltipFlag);
+        
+        if (level != null && upgrades != null) {
+            builder.accept(Component.literal("Slots: " + upgrades.size() + "/" + level.slotCount()));
+            if(tooltipFlag.hasShiftDown()) {
+                for (ToolUpgrade upgrade : upgrades) {
+                    builder.accept(Component.literal("- " + upgrade.getDisplayName()));
+                }
+            }
+        }
+        
     }
     
     @Override
@@ -60,6 +74,14 @@ public class EvolvingPicaxe extends Item {
         }
         
         return super.mineBlock(itemStack, level, state, pos, owner);
+    }
+    
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        if (enchantment.is(Enchantments.MENDING)){
+            return false;
+        }
+        return super.supportsEnchantment(stack, enchantment);
     }
     
     private void addXp(ItemStack stack, int amount) {
@@ -84,10 +106,10 @@ public class EvolvingPicaxe extends Item {
         }
     }
     
-    public static void applyTier(ItemStack stack, ToolTier tier, Level level) {
+    public static void applyTier(ItemStack stack, ToolTier tier, HolderGetter.Provider lookup) {
         ToolMaterial mat = tier.getMaterial();
-        HolderGetter<Block> blocks = level.registryAccess().lookupOrThrow(Registries.BLOCK);
-        HolderGetter<Item> items = level.registryAccess().lookupOrThrow(Registries.ITEM);
+        HolderGetter<Block> blocks = lookup.lookupOrThrow(Registries.BLOCK);
+        HolderGetter<Item> items = lookup.lookupOrThrow(Registries.ITEM);
         
         stack.set(DataComponents.TOOL, new Tool(
             List.of(
@@ -100,6 +122,10 @@ public class EvolvingPicaxe extends Item {
         stack.set(DataComponents.ENCHANTABLE, new Enchantable(mat.enchantmentValue()));
         stack.set(DataComponents.REPAIRABLE, new Repairable(items.getOrThrow(mat.repairItems())));
         stack.set(DataComponents.ITEM_MODEL, tier.getModelId());
+        
+        if (!stack.has(DataComponents.ENCHANTMENTS)) {
+            stack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        }
         
         stack.set(ModDataComponents.TOOL_TIER.get(), tier);
         recalculateMaxDamage(stack);

@@ -13,9 +13,9 @@ import java.util.function.IntFunction;
 
 public enum ToolTier implements StringRepresentable {
     FLINT(0, 1, "flint", "Flint", ModToolMaterials.FLINT_MATERIAL ),
-    IRON(1, 2, "iron", "Iron", ModToolMaterials.IRON_MATERIAL),
-    DIAMOND(2, 3, "diamond", "Diamond", ModToolMaterials.FLINT_MATERIAL),
-    NETHERITE(3, 4, "netherite", "Netherite", ModToolMaterials.FLINT_MATERIAL),
+    IRON(1, 2, "iron", "Iron", ToolMaterial.IRON),
+    DIAMOND(2, 3, "diamond", "Diamond", ToolMaterial.DIAMOND),
+    NETHERITE(3, 4, "netherite", "Netherite", ToolMaterial.NETHERITE),
     DRACONIC(4, 5,"draconic", "Draconic", ModToolMaterials.FLINT_MATERIAL);
     
     private final int id;

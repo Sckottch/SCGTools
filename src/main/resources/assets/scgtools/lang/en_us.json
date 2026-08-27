@@ -2,6 +2,9 @@
     "itemGroup.scgtools.items": "SCG Tools Items",
 
     "item.scgtools.mending_gem": "Mending Gem",
+
     "item.scgtools.pickaxe": "Pickaxe",
+    "item.scgtools.axe": "Axe",
+
     "itemGroup.scgtools.tools": "SCGTools Tools"
 }

@@ -36,6 +36,11 @@ public class ModCreativeTab {
                     ModItems.PICKAXE.get().applyTier(stack, tier, params.holders());
                     out.accept(stack);
                 }
+                for (ToolTier tier : ToolTier.values()) {
+                    ItemStack stack = new ItemStack(ModItems.AXE.get());
+                    ModItems.AXE.get().applyTier(stack, tier, params.holders());
+                    out.accept(stack);
+                }
             })
             .build()
         );

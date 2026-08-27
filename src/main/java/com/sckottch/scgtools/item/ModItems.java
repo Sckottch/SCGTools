@@ -3,6 +3,7 @@ package com.sckottch.scgtools.item;
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.components.ToolLevelData;
+import com.sckottch.scgtools.item.tools.EvolvingAxe;
 import com.sckottch.scgtools.item.tools.EvolvingPicaxe;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.component.DataComponents;
@@ -27,6 +28,15 @@ public class ModItems {
                 .component(ModDataComponents.TOOL_LEVEL.get(), ToolLevelData.INITIAL)
                 .component(ModDataComponents.TOOL_TIER.get(), ToolTier.FLINT)
                 .component(ModDataComponents.TOOL_UPGRADES.get(), List.of())
+        )
+    );
+    
+    public static final DeferredItem<EvolvingAxe> AXE = ITEMS.registerItem(
+        "axe",
+        props -> new EvolvingAxe(ModToolMaterials.FLINT_MATERIAL, 7.0F, -3.2F, props
+            .component(ModDataComponents.TOOL_LEVEL.get(), ToolLevelData.INITIAL)
+            .component(ModDataComponents.TOOL_TIER.get(), ToolTier.FLINT)
+            .component(ModDataComponents.TOOL_UPGRADES.get(), List.of())
         )
     );
     

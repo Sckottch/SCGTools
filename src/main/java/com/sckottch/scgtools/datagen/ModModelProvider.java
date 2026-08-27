@@ -10,6 +10,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 
 public class ModModelProvider extends ModelProvider {
     public ModModelProvider(PackOutput output) {
@@ -20,24 +21,29 @@ public class ModModelProvider extends ModelProvider {
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.MENDING_GEM.get(), ModelTemplates.FLAT_ITEM);
         
-        setPickaxeModels(itemModels);
+        setEvolvingModels(ModItems.PICKAXE.get(), itemModels);
+        setEvolvingModels(ModItems.AXE.get(), itemModels);
     }
     
-    private void setPickaxeModels(ItemModelGenerators itemModels) {
+    private void setEvolvingModels(Item evolvingItem, ItemModelGenerators itemModels) {
         Identifier flintModel = itemModels.createFlatItemModel(
-            ModItems.PICKAXE.get(), "_flint", ModelTemplates.FLAT_HANDHELD_ITEM
+            evolvingItem, "_flint", ModelTemplates.FLAT_HANDHELD_ITEM
         );
         Identifier ironModel =  itemModels.createFlatItemModel(
-            ModItems.PICKAXE.get(), "_iron", ModelTemplates.FLAT_HANDHELD_ITEM
+            evolvingItem, "_iron", ModelTemplates.FLAT_HANDHELD_ITEM
+        );
+        Identifier diamondModel =  itemModels.createFlatItemModel(
+            evolvingItem, "_diamond", ModelTemplates.FLAT_HANDHELD_ITEM
         );
         
         itemModels.itemModelOutput.accept(
-            ModItems.PICKAXE.get(),
+            evolvingItem,
             ItemModelUtils.select(
                 new CustomModelDataProperty(0),
                 ItemModelUtils.plainModel(flintModel),
                 ItemModelUtils.when("flint", ItemModelUtils.plainModel(flintModel)),
-                ItemModelUtils.when("iron", ItemModelUtils.plainModel(ironModel))
+                ItemModelUtils.when("iron", ItemModelUtils.plainModel(ironModel)),
+                ItemModelUtils.when("diamond", ItemModelUtils.plainModel(diamondModel))
             )
         );
     }

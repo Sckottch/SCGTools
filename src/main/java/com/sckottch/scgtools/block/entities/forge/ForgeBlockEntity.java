@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jspecify.annotations.Nullable;
 
@@ -26,6 +27,12 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     public static final int TOTAL_SLOTS = 8;
     
     private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(TOTAL_SLOTS) {
+        @Override
+        protected int getCapacity(int index, ItemResource resource) {
+            if (index == MAIN_SLOT) return 1;
+            return super.getCapacity(index, resource);
+        }
+        
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
             super.onContentsChanged(index, previousContents);

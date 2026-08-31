@@ -1,6 +1,7 @@
 package com.sckottch.scgtools.block.entities.forge;
 
 import com.sckottch.scgtools.block.ModBlocks;
+import com.sckottch.scgtools.item.tools.EvolvingTool;
 import com.sckottch.scgtools.menu.ModMenus;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -52,8 +53,34 @@ public class ForgeMenu extends AbstractContainerMenu {
     }
     
     @Override
-    public ItemStack quickMoveStack(Player player, int i) {
-        return null;
+    public ItemStack quickMoveStack(Player player, int index) {
+        Slot slot = this.slots.get(index);
+        if (!slot.hasItem()) return ItemStack.EMPTY;
+        
+        ItemStack stack = slot.getItem();
+        ItemStack original = stack.copy();
+        
+        if (index < ForgeBlockEntity.TOTAL_SLOTS) {
+            if (!moveItemStackTo(stack, ForgeBlockEntity.TOTAL_SLOTS, this.slots.size(), true)) return ItemStack.EMPTY;
+        } else {
+            Slot mainSlot = this.slots.get(ForgeBlockEntity.MAIN_SLOT);
+            
+            if (isMainSlotItem(stack) && !mainSlot.hasItem()) {
+                ItemStack single = stack.split(1);
+                mainSlot.set(single);
+            } else {
+                if (!moveItemStackTo(stack, 0, ForgeBlockEntity.RECIPE_SLOTS, false)) return ItemStack.EMPTY;
+            }
+        }
+        
+        if (stack.isEmpty()) slot.set(ItemStack.EMPTY);
+        else slot.setChanged();
+        
+        return original;
+    }
+    
+    private boolean isMainSlotItem(ItemStack stack) {
+        return stack.getItem() instanceof EvolvingTool;
     }
     
     @Override

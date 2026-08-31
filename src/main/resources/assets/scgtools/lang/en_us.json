@@ -6,5 +6,6 @@
     "item.scgtools.pickaxe": "Pickaxe",
     "item.scgtools.axe": "Axe",
 
-    "itemGroup.scgtools.tools": "SCGTools Tools"
+    "itemGroup.scgtools.tools": "SCGTools Tools",
+    "block.scgtools.forge": "Forge"
 }

@@ -1,6 +1,7 @@
 package com.sckottch.scgtools.datagen;
 
 import com.sckottch.scgtools.SCGTools;
+import com.sckottch.scgtools.block.ModBlocks;
 import com.sckottch.scgtools.item.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -20,6 +21,7 @@ public class ModModelProvider extends ModelProvider {
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.MENDING_GEM.get(), ModelTemplates.FLAT_ITEM);
+        blockModels.createTrivialCube(ModBlocks.FORGE.get());
         
         setEvolvingModels(ModItems.PICKAXE.get(), itemModels);
         setEvolvingModels(ModItems.AXE.get(), itemModels);

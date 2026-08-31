@@ -1,9 +1,12 @@
 package com.sckottch.scgtools;
 
 import com.mojang.logging.LogUtils;
+import com.sckottch.scgtools.block.ModBlocks;
+import com.sckottch.scgtools.block.entities.ModBlockEntities;
 import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.item.ModItems;
 import com.sckottch.scgtools.item.tools.upgrades.ModUpgrades;
+import com.sckottch.scgtools.menu.ModMenus;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -20,7 +23,10 @@ public class SCGTools {
         modEventBus.addListener(this::commonSetup);
         
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
         ModCreativeTab.register(modEventBus);
+        ModMenus.register(modEventBus);
         ModDataComponents.register(modEventBus);
         ModUpgrades.register(modEventBus);
         

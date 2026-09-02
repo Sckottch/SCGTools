@@ -1,6 +1,5 @@
-package com.sckottch.scgtools.block.entities.forge;
+package com.sckottch.scgtools.forge;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.sckottch.scgtools.SCGTools;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

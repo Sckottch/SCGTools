@@ -1,7 +1,6 @@
-package com.sckottch.scgtools.block.entities.forge;
+package com.sckottch.scgtools.forge;
 
 import com.sckottch.scgtools.block.ModBlocks;
-import com.sckottch.scgtools.item.tools.EvolvingTool;
 import com.sckottch.scgtools.menu.ModMenus;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -49,6 +48,17 @@ public class ForgeMenu extends AbstractContainerMenu {
             public boolean mayPlace(ItemStack stack) {
                 return false;
             }
+            
+            @Override
+            public boolean mayPickup(Player player) {
+                return blockEntity.canCraft(player);
+            }
+            
+            @Override
+            public void onTake(Player player, ItemStack carried) {
+                blockEntity.onCrafted(player);
+                super.onTake(player, carried);
+            }
         });
     }
     
@@ -65,7 +75,7 @@ public class ForgeMenu extends AbstractContainerMenu {
         } else {
             Slot mainSlot = this.slots.get(ForgeBlockEntity.MAIN_SLOT);
             
-            if (isMainSlotItem(stack) && !mainSlot.hasItem()) {
+            if (!mainSlot.hasItem()) {
                 ItemStack single = stack.split(1);
                 mainSlot.set(single);
             } else {
@@ -77,10 +87,6 @@ public class ForgeMenu extends AbstractContainerMenu {
         else slot.setChanged();
         
         return original;
-    }
-    
-    private boolean isMainSlotItem(ItemStack stack) {
-        return stack.getItem() instanceof EvolvingTool;
     }
     
     @Override

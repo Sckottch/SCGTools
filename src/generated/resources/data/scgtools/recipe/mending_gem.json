@@ -1,0 +1,22 @@
+{
+  "type": "scgtools:forge_simple",
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "neoforge:ingredient_type": "neoforge:components",
+        "components": {
+          "minecraft:stored_enchantments": {
+            "minecraft:mending": 1
+          }
+        },
+        "items": "minecraft:enchanted_book"
+      }
+    }
+  ],
+  "main": "minecraft:diamond",
+  "result": {
+    "id": "scgtools:mending_gem"
+  },
+  "xp_cost": 30
+}

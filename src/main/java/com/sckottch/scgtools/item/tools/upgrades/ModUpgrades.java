@@ -13,7 +13,7 @@ public class ModUpgrades {
         DeferredRegister.create(ModRegistries.UPGRADE_REGISTRY_KEY, SCGTools.MODID);
     
     public static final Supplier<ToolUpgrade> MENDING =
-        UPGRADES.register("mending", () -> new MendingUpgrade(ToolTier.IRON, "Mending"));
+        UPGRADES.register("mending", () -> new MendingUpgrade(ToolTier.FLINT, "Mending"));
     
     public static void register(IEventBus eventBus) {
         UPGRADES.register(eventBus);

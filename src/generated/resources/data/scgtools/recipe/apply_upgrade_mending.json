@@ -1,0 +1,23 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": "scgtools:mending_gem"
+    },
+    {
+      "count": 5,
+      "ingredient": "minecraft:emerald"
+    },
+    {
+      "count": 5,
+      "ingredient": "minecraft:emerald_block"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:mending"
+  },
+  "tool": "#scgtools:evolving_tool",
+  "xp_cost": 30
+}

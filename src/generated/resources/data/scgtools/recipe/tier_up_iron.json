@@ -1,0 +1,15 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 3,
+      "ingredient": "minecraft:iron_ingot"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:tier_up",
+    "from": "flint",
+    "to": "iron"
+  },
+  "tool": "#scgtools:evolving_tool"
+}

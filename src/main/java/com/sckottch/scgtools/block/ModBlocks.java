@@ -1,7 +1,7 @@
 package com.sckottch.scgtools.block;
 
 import com.sckottch.scgtools.SCGTools;
-import com.sckottch.scgtools.block.entities.forge.ForgeBlock;
+import com.sckottch.scgtools.forge.ForgeBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;

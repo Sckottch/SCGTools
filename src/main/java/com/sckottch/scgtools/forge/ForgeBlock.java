@@ -1,4 +1,4 @@
-package com.sckottch.scgtools.block.entities.forge;
+package com.sckottch.scgtools.forge;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;

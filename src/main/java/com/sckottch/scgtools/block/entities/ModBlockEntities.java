@@ -2,7 +2,7 @@ package com.sckottch.scgtools.block.entities;
 
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.block.ModBlocks;
-import com.sckottch.scgtools.block.entities.forge.ForgeBlockEntity;
+import com.sckottch.scgtools.forge.ForgeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;

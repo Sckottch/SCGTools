@@ -1,7 +1,7 @@
 package com.sckottch.scgtools.menu;
 
 import com.sckottch.scgtools.SCGTools;
-import com.sckottch.scgtools.block.entities.forge.ForgeMenu;
+import com.sckottch.scgtools.forge.ForgeMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;

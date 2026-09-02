@@ -39,13 +39,21 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     
     private boolean updating = false;
     
-    private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(TOTAL_SLOTS) {
+    // o menu do cliente monta o seu próprio handler, e a capacidade precisa bater
+    // com a do servidor para a previsão do shift-click não ser corrigida depois
+    public static class ForgeInventory extends ItemStacksResourceHandler {
+        public ForgeInventory() {
+            super(TOTAL_SLOTS);
+        }
+
         @Override
         protected int getCapacity(int index, ItemResource resource) {
             if (index == MAIN_SLOT) return 1;
             return super.getCapacity(index, resource);
         }
-        
+    }
+
+    private final ForgeInventory inventory = new ForgeInventory() {
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
             super.onContentsChanged(index, previousContents);
@@ -147,7 +155,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         return player.totalExperience >= totalXpForLevel(cost);
     }
     
-    private int getXpCost() {
+    public int getXpCost() {
         var simple = getSimpleRecipe();
         if (simple.isPresent()) return simple.get().value().getXpCost();
         

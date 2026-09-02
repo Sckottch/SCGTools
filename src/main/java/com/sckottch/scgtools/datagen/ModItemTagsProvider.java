@@ -25,5 +25,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModTags.Items.EVOLVING_TOOL)
             .add(ModItems.PICKAXE.getKey())
             .add(ModItems.AXE.getKey());
+
+        tag(ModTags.Items.FORGE_MAIN)
+            .addTag(ModTags.Items.EVOLVING_TOOL)
+            .add(ItemIds.DIAMOND);
     }
 }

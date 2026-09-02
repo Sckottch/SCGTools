@@ -25,6 +25,7 @@ public class ModModelProvider extends ModelProvider {
         
         setEvolvingModels(ModItems.PICKAXE.get(), itemModels);
         setEvolvingModels(ModItems.AXE.get(), itemModels);
+        setEvolvingModels(ModItems.SWORD.get(), itemModels);
     }
     
     private void setEvolvingModels(Item evolvingItem, ItemModelGenerators itemModels) {

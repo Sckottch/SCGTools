@@ -1,10 +1,12 @@
 package com.sckottch.scgtools;
 
 import com.sckottch.scgtools.item.ModItems;
+import com.sckottch.scgtools.item.tools.EvolvingTool;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -31,19 +33,21 @@ public class ModCreativeTab {
             .title(Component.translatable("itemGroup.scgtools.tools"))
             .icon(() -> new ItemStack(ModItems.PICKAXE.get()))
             .displayItems((params, out) -> {
-                for (ToolTier tier : ToolTier.values()) {
-                    ItemStack stack = new ItemStack(ModItems.PICKAXE.get());
-                    ModItems.PICKAXE.get().applyTier(stack, tier, params.holders());
-                    out.accept(stack);
-                }
-                for (ToolTier tier : ToolTier.values()) {
-                    ItemStack stack = new ItemStack(ModItems.AXE.get());
-                    ModItems.AXE.get().applyTier(stack, tier, params.holders());
-                    out.accept(stack);
-                }
+                addEvolvingTool(ModItems.PICKAXE.get(), params, out);
+                addEvolvingTool(ModItems.AXE.get(), params, out);
+                addEvolvingTool(ModItems.SWORD.get(), params, out);
             })
             .build()
         );
+    
+    private static void addEvolvingTool(Item item, CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output out) {
+        for (ToolTier tier : ToolTier.values()) {
+            if (!(item instanceof EvolvingTool tool)) return;
+            ItemStack stack = new ItemStack(item);
+            tool.applyTier(stack, tier,params.holders());
+            out.accept(stack);
+        }
+    }
     
     public static void register(IEventBus eventBus) {
         CREATIVE_TABS.register(eventBus);

@@ -6,6 +6,7 @@ import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.components.ToolLevelData;
 import com.sckottch.scgtools.item.tools.EvolvingAxe;
 import com.sckottch.scgtools.item.tools.EvolvingPicaxe;
+import com.sckottch.scgtools.item.tools.EvolvingSword;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BlockItem;
@@ -41,6 +42,16 @@ public class ModItems {
             .component(ModDataComponents.TOOL_LEVEL.get(), ToolLevelData.INITIAL)
             .component(ModDataComponents.TOOL_TIER.get(), ToolTier.FLINT)
             .component(ModDataComponents.TOOL_UPGRADES.get(), List.of())
+        )
+    );
+    
+    public static final DeferredItem<EvolvingSword> SWORD = ITEMS.registerItem(
+        "sword",
+        props -> new EvolvingSword(
+            props.sword(ModToolMaterials.FLINT_MATERIAL, 3, -2.4F)
+                .component(ModDataComponents.TOOL_LEVEL.get(), ToolLevelData.INITIAL)
+                .component(ModDataComponents.TOOL_TIER.get(), ToolTier.FLINT)
+                .component(ModDataComponents.TOOL_UPGRADES.get(), List.of())
         )
     );
     

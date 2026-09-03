@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
     public static final Identifier TEXTURE =
-        Identifier.fromNamespaceAndPath(SCGTools.MODID, "textures/gui/forge.png");
+        Identifier.fromNamespaceAndPath(SCGTools.MOD_ID, "textures/gui/forge.png");
 
     private static final int ARROW_CENTER_X = 120;
     private static final int XP_LABEL_Y = 20;

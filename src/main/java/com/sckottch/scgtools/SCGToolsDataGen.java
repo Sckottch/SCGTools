@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = SCGTools.MODID)
+@EventBusSubscriber(modid = SCGTools.MOD_ID)
 public class SCGToolsDataGen {
     @SubscribeEvent
     public static void gatherClientData(GatherDataEvent.Client event) {

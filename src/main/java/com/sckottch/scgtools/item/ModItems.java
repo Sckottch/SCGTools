@@ -18,7 +18,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.List;
 
 public class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(SCGTools.MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(SCGTools.MOD_ID);
     
     public static final DeferredItem<Item> MENDING_GEM = ITEMS.registerSimpleItem("mending_gem", props ->
         props.component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)

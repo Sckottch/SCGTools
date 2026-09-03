@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(
-        Registries.BLOCK_ENTITY_TYPE, SCGTools.MODID
+        Registries.BLOCK_ENTITY_TYPE, SCGTools.MOD_ID
     );
     
     public static final Supplier<BlockEntityType<ForgeBlockEntity>> FORGE =

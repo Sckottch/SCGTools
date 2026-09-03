@@ -11,7 +11,7 @@ import net.minecraft.world.item.ToolMaterial;
 public class ModToolMaterials {
     public static final TagKey<Item> FLINT_REPAIR_ITEMS = TagKey.create(
         Registries.ITEM,
-        Identifier.fromNamespaceAndPath(SCGTools.MODID, "flint_repair_items")
+        Identifier.fromNamespaceAndPath(SCGTools.MOD_ID, "flint_repair_items")
     );
     
     public static final ToolMaterial FLINT_MATERIAL = new ToolMaterial(

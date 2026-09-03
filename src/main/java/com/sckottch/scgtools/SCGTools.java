@@ -16,9 +16,9 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
-@Mod(SCGTools.MODID)
+@Mod(SCGTools.MOD_ID)
 public class SCGTools {
-    public static final String MODID = "scgtools";
+    public static final String MOD_ID = "scgtools";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public SCGTools(IEventBus modEventBus, ModContainer modContainer) {

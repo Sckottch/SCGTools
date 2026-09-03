@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
     public ModBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
-        super(output, lookup, SCGTools.MODID);
+        super(output, lookup, SCGTools.MOD_ID);
     }
     
     @Override

@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public class ModUpgrades {
     public static DeferredRegister<ToolUpgrade> UPGRADES =
-        DeferredRegister.create(ModRegistries.UPGRADE_REGISTRY_KEY, SCGTools.MODID);
+        DeferredRegister.create(ModRegistries.UPGRADE_REGISTRY_KEY, SCGTools.MOD_ID);
     
     public static final Supplier<ToolUpgrade> MENDING =
         UPGRADES.register("mending", () -> new MendingUpgrade(ToolTier.FLINT, "Mending"));

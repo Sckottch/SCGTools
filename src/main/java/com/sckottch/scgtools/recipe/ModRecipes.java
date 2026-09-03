@@ -11,10 +11,10 @@ import java.util.function.Supplier;
 
 public class ModRecipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
-        DeferredRegister.create(Registries.RECIPE_TYPE, SCGTools.MODID);
+        DeferredRegister.create(Registries.RECIPE_TYPE, SCGTools.MOD_ID);
     
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
-        DeferredRegister.create(Registries.RECIPE_SERIALIZER, SCGTools.MODID);
+        DeferredRegister.create(Registries.RECIPE_SERIALIZER, SCGTools.MOD_ID);
     
     public static final Supplier<RecipeType<SimpleForgeRecipe>> FORGE_SIMPLE_TYPE =
         RECIPE_TYPES.register("forge_simple", RecipeType::simple);

@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public class ModForgeOperations {
     public static final DeferredRegister<MapCodec<? extends ForgeOperation>> OPERATIONS =
-        DeferredRegister.create(ModRegistries.OPERATION_REGISTRY_KEY, SCGTools.MODID);
+        DeferredRegister.create(ModRegistries.OPERATION_REGISTRY_KEY, SCGTools.MOD_ID);
     
     public static final Supplier<MapCodec<? extends ForgeOperation>> TIER_UP = 
         OPERATIONS.register("tier_up", () -> TierUpOperation.CODEC);

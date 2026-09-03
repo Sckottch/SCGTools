@@ -23,7 +23,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = SCGTools.MODID)
+@EventBusSubscriber(modid = SCGTools.MOD_ID)
 public class ModCommands {
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {

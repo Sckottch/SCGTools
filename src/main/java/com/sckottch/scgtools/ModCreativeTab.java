@@ -14,7 +14,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModCreativeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
-        DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SCGTools.MODID);
+        DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SCGTools.MOD_ID);
     
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SCGTOOLS_ITEMS_TAB =
         CREATIVE_TABS.register("scgtools_tab_items", () -> CreativeModeTab.builder()

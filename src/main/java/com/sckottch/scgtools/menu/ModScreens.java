@@ -7,7 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
-@EventBusSubscriber(modid = SCGTools.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = SCGTools.MOD_ID, value = Dist.CLIENT)
 public class ModScreens {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {

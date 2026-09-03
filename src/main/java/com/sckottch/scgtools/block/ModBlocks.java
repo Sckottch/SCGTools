@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModBlocks {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(SCGTools.MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(SCGTools.MOD_ID);
     
     public static final DeferredBlock<ForgeBlock> FORGE = BLOCKS.registerBlock(
         "forge",

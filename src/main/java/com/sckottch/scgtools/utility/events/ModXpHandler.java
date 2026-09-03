@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = SCGTools.MODID)
+@EventBusSubscriber(modid = SCGTools.MOD_ID)
 public class ModXpHandler {
     
     private static final int DURABILITY_PER_XP = 2;
@@ -37,7 +37,6 @@ public class ModXpHandler {
         
         stack.setDamageValue(damage - repaired);
         
-        // reduzir o valor do orbe deixa o fluxo vanilla seguir: ele entrega o resto ao jogador e descarta o orbe
         orb.setValue(xpAvailable - xpUsed);
     }
 }

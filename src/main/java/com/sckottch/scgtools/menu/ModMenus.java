@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class ModMenus {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(
-        Registries.MENU, SCGTools.MODID
+        Registries.MENU, SCGTools.MOD_ID
     );
     
     public static final Supplier<MenuType<ForgeMenu>> FORGE =

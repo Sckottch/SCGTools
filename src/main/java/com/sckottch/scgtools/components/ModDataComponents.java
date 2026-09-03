@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class ModDataComponents {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS =
-        DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, SCGTools.MODID);
+        DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, SCGTools.MOD_ID);
     
     public static final Supplier<DataComponentType<ToolLevelData>> TOOL_LEVEL =
         DATA_COMPONENTS.registerComponentType("tool_level",

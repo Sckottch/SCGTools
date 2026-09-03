@@ -12,11 +12,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-@EventBusSubscriber(modid = SCGTools.MODID)
+@EventBusSubscriber(modid = SCGTools.MOD_ID)
 public class ModRegistries {
     public static final ResourceKey<Registry<ToolUpgrade>> UPGRADE_REGISTRY_KEY =
         ResourceKey.createRegistryKey(
-            Identifier.fromNamespaceAndPath(SCGTools.MODID, "tool_upgrade")
+            Identifier.fromNamespaceAndPath(SCGTools.MOD_ID, "tool_upgrade")
         );
     
     public static final Registry<ToolUpgrade> UPGRADE_REGISTRY =
@@ -26,7 +26,7 @@ public class ModRegistries {
     
     public static final ResourceKey<Registry<MapCodec<? extends ForgeOperation>>> OPERATION_REGISTRY_KEY =
         ResourceKey.createRegistryKey(
-            Identifier.fromNamespaceAndPath(SCGTools.MODID, "forge_operation")
+            Identifier.fromNamespaceAndPath(SCGTools.MOD_ID, "forge_operation")
         );
     
     public static final Registry<MapCodec<? extends ForgeOperation>> OPERATION_REGISTRY =

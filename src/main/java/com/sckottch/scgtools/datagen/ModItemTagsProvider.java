@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
     public ModItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, SCGTools.MODID);
+        super(output, lookupProvider, SCGTools.MOD_ID);
     }
     
     @Override
@@ -30,5 +30,12 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModTags.Items.FORGE_MAIN)
             .addTag(ModTags.Items.EVOLVING_TOOL)
             .add(ItemIds.DIAMOND);
+        
+        tag(ModTags.Items.MINING_TOOL)
+            .add(ModItems.PICKAXE.getKey())
+            .add(ModItems.AXE.getKey());
+        
+        tag(ModTags.Items.WEAPON)
+            .add(ModItems.SWORD.getKey());
     }
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.item.Item;
 
 public class ModModelProvider extends ModelProvider {
     public ModModelProvider(PackOutput output) {
-        super(output, SCGTools.MODID);
+        super(output, SCGTools.MOD_ID);
     }
     
     @Override

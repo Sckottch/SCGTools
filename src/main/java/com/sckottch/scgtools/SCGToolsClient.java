@@ -10,8 +10,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = SCGTools.MODID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = SCGTools.MODID, value = Dist.CLIENT)
+@Mod(value = SCGTools.MOD_ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = SCGTools.MOD_ID, value = Dist.CLIENT)
 public class SCGToolsClient {
     public SCGToolsClient(ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);

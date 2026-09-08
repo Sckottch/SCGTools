@@ -16,7 +16,7 @@ public enum ToolTier implements StringRepresentable {
     IRON(1, 2, "iron", "Iron", ToolMaterial.IRON),
     DIAMOND(2, 3, "diamond", "Diamond", ToolMaterial.DIAMOND),
     NETHERITE(3, 4, "netherite", "Netherite", ToolMaterial.NETHERITE),
-    DRACONIC(4, 5,"draconic", "Draconic", ModToolMaterials.FLINT_MATERIAL);
+    DRACONIC(4, 5,"draconic", "Draconic", ModToolMaterials.DRACONIC_MATERIAL);
     
     private final int id;
     private final int durabilityMultiplier;

@@ -38,6 +38,12 @@ public class ModModelProvider extends ModelProvider {
         Identifier diamondModel =  itemModels.createFlatItemModel(
             evolvingItem, "_diamond", ModelTemplates.FLAT_HANDHELD_ITEM
         );
+        Identifier netheriteModel =  itemModels.createFlatItemModel(
+            evolvingItem, "_netherite", ModelTemplates.FLAT_HANDHELD_ITEM
+        );
+        Identifier draconicModel =  itemModels.createFlatItemModel(
+            evolvingItem, "_draconic", ModelTemplates.FLAT_HANDHELD_ITEM
+        );
         
         itemModels.itemModelOutput.accept(
             evolvingItem,
@@ -46,7 +52,9 @@ public class ModModelProvider extends ModelProvider {
                 ItemModelUtils.plainModel(flintModel),
                 ItemModelUtils.when("flint", ItemModelUtils.plainModel(flintModel)),
                 ItemModelUtils.when("iron", ItemModelUtils.plainModel(ironModel)),
-                ItemModelUtils.when("diamond", ItemModelUtils.plainModel(diamondModel))
+                ItemModelUtils.when("diamond", ItemModelUtils.plainModel(diamondModel)),
+                ItemModelUtils.when("netherite", ItemModelUtils.plainModel(netheriteModel)),
+                ItemModelUtils.when("draconic", ItemModelUtils.plainModel(draconicModel))
             )
         );
     }

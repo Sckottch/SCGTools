@@ -22,6 +22,20 @@
           "model": "scgtools:item/axe_diamond"
         },
         "when": "diamond"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/axe_netherite"
+        },
+        "when": "netherite"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/axe_draconic"
+        },
+        "when": "draconic"
       }
     ],
     "fallback": {

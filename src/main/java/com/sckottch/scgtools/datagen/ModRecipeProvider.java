@@ -51,20 +51,30 @@ public class ModRecipeProvider extends RecipeProvider {
             .save(this.output);
         
         new ToolForgeRecipeBuilder(
-            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_TOOL)),
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
             new TierUpOperation(ToolTier.FLINT, ToolTier.IRON)
         )
             .ingredient(Items.IRON_INGOT, 3)
             .save(this.output);
         
         new ToolForgeRecipeBuilder(
-            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_TOOL)),
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
             new ApplyUpgradeOperation(ModUpgrades.MENDING.get())
         )
             .ingredient(ModItems.MENDING_GEM.get(), 1)
             .ingredient(Items.EMERALD, 5)
             .ingredient(Items.EMERALD_BLOCK, 5)
             .xpCost(30)
+            .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            new ApplyUpgradeOperation(ModUpgrades.HAMMER.get())
+        )
+            .ingredient(Items.IRON_BLOCK, 3)
+            .ingredient(Items.COBBLESTONE, 32)
+            .ingredient(Items.DIAMOND, 2)
+            .ingredient(Items.IRON_PICKAXE, 2)
             .save(this.output);
     }
     

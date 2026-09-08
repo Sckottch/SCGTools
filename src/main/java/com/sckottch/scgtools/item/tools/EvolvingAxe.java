@@ -5,7 +5,10 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
@@ -18,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Consumer;
 
-public class EvolvingAxe extends AxeItem implements EvolvingTool {
+public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
     public EvolvingAxe(ToolMaterial material, float baseAttackDamage, float baseAttackSpeed, Properties props) {
         super(material, baseAttackDamage, baseAttackSpeed, props);
     }
@@ -32,7 +35,14 @@ public class EvolvingAxe extends AxeItem implements EvolvingTool {
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         evolvingTooltip(itemStack, builder, tooltipFlag);
+        miningModeTooltip(itemStack, builder);
         super.appendHoverText(itemStack, context, display, builder, tooltipFlag);
+    }
+    
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (!player.isShiftKeyDown()) return super.use(level, player, hand);
+        return changeMiningMode(level, player, hand);
     }
     
     @Override

@@ -5,6 +5,7 @@ import com.sckottch.scgtools.recipe.ForgeRecipeInput;
 import com.sckottch.scgtools.recipe.ModRecipes;
 import com.sckottch.scgtools.recipe.SimpleForgeRecipe;
 import com.sckottch.scgtools.recipe.ToolForgeRecipe;
+import com.sckottch.scgtools.utility.enums.UpgradeValidationResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -148,11 +149,48 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         return new ForgeRecipeInput(ingredients, main);
     }
     
-    public boolean canCraft(Player player) {
-        int cost = getXpCost();
+    public record ForgeStatus(int xpCost, UpgradeValidationResult validation) {}
+
+    public ForgeStatus getStatus() {
+        var simple = getSimpleRecipe();
+        if (simple.isPresent()) {
+            return new ForgeStatus(simple.get().value().getXpCost(), UpgradeValidationResult.OK);
+        }
+
+        var toolRecipe = getToolRecipe();
+        if (toolRecipe.isPresent()) {
+            return new ForgeStatus(toolRecipe.get().value().getXpCost(), UpgradeValidationResult.OK);
+        }
+
+        return new ForgeStatus(-1, findFailure());
+    }
+
+    private UpgradeValidationResult findFailure() {
+        if (!(level instanceof ServerLevel serverLevel)) return UpgradeValidationResult.OK;
+
+        ForgeRecipeInput input = buildInput();
+        if (input.main().isEmpty()) return UpgradeValidationResult.OK;
+
+        for (RecipeHolder<ToolForgeRecipe> holder :
+            serverLevel.recipeAccess().recipeMap().byType(ModRecipes.FORGE_TOOL_TYPE.get())) {
+
+            if (!holder.value().matchesInputs(input)) continue;
+
+            UpgradeValidationResult result = holder.value().getOperation().validate(input.main());
+            if (!result.isOk()) return result;
+        }
+
+        return UpgradeValidationResult.OK;
+    }
+
+    public boolean canAfford(Player player, int cost) {
         if (cost < 0) return false;
         if (player.isCreative()) return true;
         return player.totalExperience >= totalXpForLevel(cost);
+    }
+
+    public boolean canCraft(Player player) {
+        return canAfford(player, getXpCost());
     }
     
     public int getXpCost() {

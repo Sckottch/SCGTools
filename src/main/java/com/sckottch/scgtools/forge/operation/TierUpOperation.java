@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sckottch.scgtools.components.ModDataComponents;
 import com.sckottch.scgtools.item.tools.EvolvingTool;
 import com.sckottch.scgtools.utility.enums.ToolTier;
+import com.sckottch.scgtools.utility.enums.UpgradeValidationResult;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 
@@ -26,8 +27,16 @@ public record TierUpOperation(ToolTier from, ToolTier to) implements ForgeOperat
     }
 
     @Override
-    public boolean canApply(ItemStack tool) {
-        return tool.get(ModDataComponents.TOOL_TIER.get()) == from;
+    public UpgradeValidationResult validate(ItemStack tool) {
+        if (!(tool.getItem() instanceof EvolvingTool)) return UpgradeValidationResult.INVALID;
+
+        ToolTier tier = tool.get(ModDataComponents.TOOL_TIER.get());
+        if (tier == null) return UpgradeValidationResult.INVALID;
+        if (tier == from) return UpgradeValidationResult.OK;
+
+        return tier.getId() < from.getId()
+            ? UpgradeValidationResult.WRONG_TIER
+            : UpgradeValidationResult.ALREADY_APPLIED;
     }
     
     @Override

@@ -1,0 +1,26 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 3,
+      "ingredient": "minecraft:iron_block"
+    },
+    {
+      "count": 32,
+      "ingredient": "minecraft:cobblestone"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:diamond"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:iron_pickaxe"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:hammer"
+  },
+  "tool": "#scgtools:evolving_tool"
+}

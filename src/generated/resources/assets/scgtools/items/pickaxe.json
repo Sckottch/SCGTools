@@ -22,6 +22,20 @@
           "model": "scgtools:item/pickaxe_diamond"
         },
         "when": "diamond"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/pickaxe_netherite"
+        },
+        "when": "netherite"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/pickaxe_draconic"
+        },
+        "when": "draconic"
       }
     ],
     "fallback": {

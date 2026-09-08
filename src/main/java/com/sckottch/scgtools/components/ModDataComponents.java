@@ -3,6 +3,7 @@ package com.sckottch.scgtools.components;
 import com.mojang.serialization.Codec;
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.item.tools.upgrades.ToolUpgrade;
+import com.sckottch.scgtools.utility.enums.MiningMode;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
 import net.minecraft.core.component.DataComponentType;
@@ -32,6 +33,13 @@ public class ModDataComponents {
             builder -> builder
                 .persistent(ToolTier.CODEC)
                 .networkSynchronized(ToolTier.STREAM_CODEC)
+        );
+    
+    public static final Supplier<DataComponentType<MiningMode>> MINING_MODE =
+        DATA_COMPONENTS.registerComponentType("mining_mode",
+            builder -> builder
+                .persistent(MiningMode.CODEC)
+                .networkSynchronized(MiningMode.STREAM_CODEC)
         );
     
     public static final Codec<List<ToolUpgrade>> CODEC =

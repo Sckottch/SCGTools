@@ -8,5 +8,11 @@
     "item.scgtools.sword": "Sword",
 
     "itemGroup.scgtools.tools": "SCGTools Tools",
-    "block.scgtools.forge": "Forge"
+    "block.scgtools.forge": "Forge",
+
+    "gui.scgtools.forge.invalid": "Invalid Item",
+    "gui.scgtools.forge.wrong_tool": "Invalid Tool",
+    "gui.scgtools.forge.wrong_tier": "Tier Too Low",
+    "gui.scgtools.forge.already_applied": "Already Applied",
+    "gui.scgtools.forge.no_slots": "No Upgrade Slots"
 }

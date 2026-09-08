@@ -2,6 +2,7 @@ package com.sckottch.scgtools.forge.operation;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import com.sckottch.scgtools.utility.enums.UpgradeValidationResult;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,8 +22,12 @@ public interface ForgeOperation {
     
     MapCodec<? extends ForgeOperation> codec();
 
-    boolean canApply(ItemStack tool);
+    UpgradeValidationResult validate(ItemStack tool);
     void apply(ItemStack tool, HolderLookup.Provider lookup);
+
+    default boolean canApply(ItemStack tool) {
+        return validate(tool).isOk();
+    }
 
     // distingue duas receitas da mesma operação; o prefixo do id vem do nome registrado
     String descriptor();

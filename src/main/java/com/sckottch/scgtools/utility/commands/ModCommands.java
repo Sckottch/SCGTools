@@ -5,10 +5,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.components.ModDataComponents;
-import com.sckottch.scgtools.components.ToolLevelData;
 import com.sckottch.scgtools.item.tools.EvolvingTool;
 import com.sckottch.scgtools.item.tools.upgrades.ToolUpgrade;
 import com.sckottch.scgtools.utility.enums.ToolTier;
+import com.sckottch.scgtools.utility.enums.UpgradeValidationResult;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -19,9 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @EventBusSubscriber(modid = SCGTools.MOD_ID)
 public class ModCommands {
@@ -102,52 +99,42 @@ public class ModCommands {
     private static int addUpgrade(CommandContext<CommandSourceStack> ctx, ToolUpgrade upgrade) throws CommandSyntaxException {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         ItemStack stack = player.getMainHandItem();
+        UpgradeValidationResult validation = upgrade.validate(stack);
         
-        if (!(stack.getItem() instanceof EvolvingTool)) {
-            ctx.getSource().sendFailure(
-                Component.literal("Hold a SCG Tool in your main hand to perform this command")
-            );
-            return 0;
+        switch (validation) {
+            case INVALID -> {
+                ctx.getSource().sendFailure(
+                    Component.literal("Invalid Item for this upgrade, hold a SCGTool to perform this action")
+                );
+                return 0;
+            }
+            case WRONG_TIER -> {
+                ctx.getSource().sendFailure(
+                    Component.literal("Tool tier is too low for this upgrade")
+                );
+                return 0;
+            }
+            case WRONG_TOOL -> {
+                ctx.getSource().sendFailure(
+                    Component.literal("This upgrade cannot be applied to this tool")
+                );
+                return 0;
+            }
+            case NO_SLOTS -> {
+                ctx.getSource().sendFailure(
+                    Component.literal("No available slots in this tool")
+                );
+                return 0;
+            }
+            case ALREADY_APPLIED -> {
+                ctx.getSource().sendFailure(
+                    Component.literal("Current tool already has this upgrade")
+                );
+                return 0;
+            }
         }
         
-        ToolTier tier  = stack.get(ModDataComponents.TOOL_TIER.get());
-        ToolLevelData level  = stack.get(ModDataComponents.TOOL_LEVEL.get());
-        List<ToolUpgrade> current = stack.get(ModDataComponents.TOOL_UPGRADES.get());
-        
-        if (tier == null || level == null || current == null) {
-            ctx.getSource().sendFailure(
-                Component.literal("Invalid tool components")
-            );
-            return 0;
-        }
-        
-        if (!upgrade.canApplyTo(tier)) {
-            ctx.getSource().sendFailure(
-                Component.literal("Invalid tool tier for this upgrade")
-            );
-            return 0;
-        }
-        
-        if (!(current.size() < level.slotCount())) {
-            ctx.getSource().sendFailure(
-                Component.literal("No available slots in this tool")
-            );
-            return 0;
-        }
-        
-        if (current.contains(upgrade)) {
-            ctx.getSource().sendFailure(
-                Component.literal("Current tool already has this upgrade")
-            );
-            return 0;
-        }
-        
-        List<ToolUpgrade> updated = new ArrayList<>(current);
-        updated.add(upgrade);
-        stack.set(ModDataComponents.TOOL_UPGRADES.get(), List.copyOf(updated));
-        
-        upgrade.onApply(stack);
-        
+        upgrade.applyTo(stack);
         ctx.getSource().sendSuccess(() -> Component.literal("Upgrade Applied"), true);
         return 1;
     }

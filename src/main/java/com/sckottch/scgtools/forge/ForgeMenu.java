@@ -2,6 +2,7 @@ package com.sckottch.scgtools.forge;
 
 import com.sckottch.scgtools.block.ModBlocks;
 import com.sckottch.scgtools.menu.ModMenus;
+import com.sckottch.scgtools.utility.enums.UpgradeValidationResult;
 import com.sckottch.scgtools.utility.tags.ModTags;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,6 +24,7 @@ public class ForgeMenu extends AbstractContainerMenu {
 
     private final DataSlot xpCost = DataSlot.standalone();
     private final DataSlot affordable = DataSlot.standalone();
+    private final DataSlot validation = DataSlot.standalone();
 
     public ForgeMenu(int containerId, Inventory inventory, RegistryFriendlyByteBuf buf) {
         this(containerId, inventory, inventory.player.level().getBlockEntity(buf.readBlockPos()), new ForgeBlockEntity.ForgeInventory());
@@ -65,13 +67,17 @@ public class ForgeMenu extends AbstractContainerMenu {
 
         this.addDataSlot(xpCost);
         this.addDataSlot(affordable);
+        this.addDataSlot(validation);
     }
 
     @Override
     public void broadcastChanges() {
         if (!level.isClientSide()) {
-            xpCost.set(blockEntity.getXpCost());
-            affordable.set(blockEntity.canCraft(player) ? 1 : 0);
+            ForgeBlockEntity.ForgeStatus status = blockEntity.getStatus();
+
+            xpCost.set(status.xpCost());
+            affordable.set(blockEntity.canAfford(player, status.xpCost()) ? 1 : 0);
+            validation.set(status.validation().ordinal());
         }
         super.broadcastChanges();
     }
@@ -82,6 +88,13 @@ public class ForgeMenu extends AbstractContainerMenu {
 
     public boolean canAffordXp() {
         return affordable.get() != 0;
+    }
+
+    public UpgradeValidationResult getValidation() {
+        UpgradeValidationResult[] results = UpgradeValidationResult.values();
+        int index = validation.get();
+
+        return index >= 0 && index < results.length ? results[index] : UpgradeValidationResult.OK;
     }
 
     @Override

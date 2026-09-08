@@ -47,10 +47,13 @@ public class ToolForgeRecipe implements Recipe<ForgeRecipeInput> {
     
     @Override
     public boolean matches(ForgeRecipeInput input, Level level) {
-        ItemStack main = input.main();
-        if (!tool.test(main)) return false;
-        if (!operation.canApply(main)) return false;
-        return matchesIngredients(input.ingredients());
+        return matchesInputs(input) && operation.canApply(input.main());
+    }
+
+    // separado de matches para a forja identificar a receita pretendida mesmo quando a
+    // operação não pode ser aplicada, e assim conseguir dizer o motivo na tela
+    public boolean matchesInputs(ForgeRecipeInput input) {
+        return tool.test(input.main()) && matchesIngredients(input.ingredients());
     }
     
     private boolean matchesIngredients(List<ItemStack> slots) {

@@ -2,7 +2,6 @@ package com.sckottch.scgtools.datagen;
 
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.item.ModItems;
-import com.sckottch.scgtools.item.ModToolMaterials;
 import com.sckottch.scgtools.utility.tags.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -20,15 +19,19 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(ItemTags.PICKAXES).add(ModItems.PICKAXE.getKey());
-        tag(ModToolMaterials.FLINT_REPAIR_ITEMS).add(ItemIds.FLINT);
+        tag(ItemTags.AXES).add((ModItems.AXE.getKey()));
+        tag(ItemTags.SWORDS).add((ModItems.SWORD.getKey()));
         
-        tag(ModTags.Items.EVOLVING_TOOL)
+        tag(ModTags.Items.FLINT_REPAIR_ITEMS).add(ItemIds.FLINT);
+        tag(ModTags.Items.DRACONIC_REPAIR_ITEMS).add(ItemIds.NETHER_STAR);
+        
+        tag(ModTags.Items.EVOLVING_ITEM)
             .add(ModItems.PICKAXE.getKey())
             .add(ModItems.AXE.getKey())
             .add(ModItems.SWORD.getKey());
 
         tag(ModTags.Items.FORGE_MAIN)
-            .addTag(ModTags.Items.EVOLVING_TOOL)
+            .addTag(ModTags.Items.EVOLVING_ITEM)
             .add(ItemIds.DIAMOND);
         
         tag(ModTags.Items.MINING_TOOL)

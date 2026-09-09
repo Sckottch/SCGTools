@@ -46,10 +46,23 @@ public interface MiningEvolvingTool extends EvolvingTool {
     
     default void miningModeTooltip(ItemStack stack, Consumer<Component> builder) {
         List<MiningMode> modes = availableModes(stack);
-        if (modes.size() > 1) {
-            MiningMode mode = stack.getOrDefault(ModDataComponents.MINING_MODE.get(), MiningMode.NORMAL);
-            builder.accept(Component.literal("Mode: " + mode.getDisplayName()));
+        if (modes.size() <= 1) return;
+        
+        MiningMode mode = stack.getOrDefault(ModDataComponents.MINING_MODE.get(), MiningMode.NORMAL);
+        String line = "Mode: " + mode.getDisplayName();
+        
+        List<ToolUpgrade> upgrades = stack.get(ModDataComponents.TOOL_UPGRADES.get());
+        if (upgrades != null) {
+            for (ToolUpgrade upgrade : upgrades) {
+                if (upgrade instanceof BlockBreakingUpgrade breaker && breaker.getMiningMode() == mode) {
+                    String descriptor = breaker.getModeDescriptor(stack);
+                    if (!descriptor.isEmpty()) line += " (" + descriptor + ")";
+                    break;
+                }
+            }
         }
+        
+        builder.accept(Component.literal(line));
     }
     
     default InteractionResult changeMiningMode(Level level, Player player, InteractionHand hand) {
@@ -59,8 +72,11 @@ public interface MiningEvolvingTool extends EvolvingTool {
         
         if (level instanceof ServerLevel) {
             cycleMiningMode(stack);
+
+            MiningMode mode = stack.getOrDefault(ModDataComponents.MINING_MODE.get(), MiningMode.NORMAL);
+            player.sendOverlayMessage(Component.literal("Mining Mode: " + mode.getDisplayName()));
         }
-        
+
         return InteractionResult.CONSUME;
     }
 }

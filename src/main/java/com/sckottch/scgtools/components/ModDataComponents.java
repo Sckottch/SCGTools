@@ -3,6 +3,7 @@ package com.sckottch.scgtools.components;
 import com.mojang.serialization.Codec;
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.item.tools.upgrades.ToolUpgrade;
+import com.sckottch.scgtools.utility.enums.HammerMode;
 import com.sckottch.scgtools.utility.enums.MiningMode;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
@@ -26,6 +27,7 @@ public class ModDataComponents {
             builder -> builder
                 .persistent(ToolLevelData.CODEC)
                 .networkSynchronized(ToolLevelData.STREAM_CODEC)
+                .ignoreSwapAnimation()
         );
     
     public static final Supplier<DataComponentType<ToolTier>> TOOL_TIER =
@@ -40,6 +42,14 @@ public class ModDataComponents {
             builder -> builder
                 .persistent(MiningMode.CODEC)
                 .networkSynchronized(MiningMode.STREAM_CODEC)
+                .ignoreSwapAnimation()
+        );
+    
+    public static final Supplier<DataComponentType<HammerMode>> HAMMER_MODE =
+        DATA_COMPONENTS.registerComponentType("hammer_mode",
+            builder -> builder
+                .persistent(HammerMode.CODEC)
+                .networkSynchronized(HammerMode.STREAM_CODEC)
         );
     
     public static final Codec<List<ToolUpgrade>> CODEC =

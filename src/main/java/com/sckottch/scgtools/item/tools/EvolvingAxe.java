@@ -3,10 +3,12 @@ package com.sckottch.scgtools.item.tools;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -33,6 +35,16 @@ public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
     }
     
     @Override
+    public void postHurtEnemy(ItemStack itemStack, LivingEntity mob, LivingEntity attacker) {
+        super.postHurtEnemy(itemStack, mob, attacker);
+        
+        if (!(attacker.level() instanceof ServerLevel level)) return;
+        if(!(mob.isDeadOrDying())) return;
+        
+        addXp(itemStack, mob.getExperienceReward(level, attacker));
+    }
+    
+    @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         evolvingTooltip(itemStack, builder, tooltipFlag);
         miningModeTooltip(itemStack, builder);
@@ -49,6 +61,12 @@ public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
         if (enchantmentBlocked(enchantment)) return false;
         return super.supportsEnchantment(stack, enchantment);
+    }
+    
+    @Override
+    public boolean canBeHurtBy(ItemStack stack, DamageSource source) {
+        if (!tierAllowsDamage(stack, source)) return false;
+        return super.canBeHurtBy(stack, source);
     }
     
     @Override

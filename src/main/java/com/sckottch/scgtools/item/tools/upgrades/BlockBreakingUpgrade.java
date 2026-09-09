@@ -12,4 +12,10 @@ public interface BlockBreakingUpgrade {
     MiningMode getMiningMode();
     float getSpeedMultiplier(ItemStack tool);
     List<BlockPos> getBlocksToBreak(ItemStack tool, Level level, BlockPos origin, ServerPlayer player);
+    
+    default void cycleUpgradeMode(ItemStack tool) {}
+    
+    default String getModeDescriptor(ItemStack tool) {
+        return "";
+    }
 }

@@ -10,7 +10,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,12 +43,7 @@ public interface EvolvingTool {
         HolderGetter<Block> blocks = lookup.lookupOrThrow(Registries.BLOCK);
         HolderGetter<Item> items = lookup.lookupOrThrow(Registries.ITEM);
         
-        stack.set(DataComponents.TOOL, new Tool(
-            List.of(
-                Tool.Rule.deniesDrops(blocks.getOrThrow(mat.incorrectBlocksForDrops())),
-                Tool.Rule.minesAndDrops(blocks.getOrThrow(getMineableTag()), mat.speed())
-            ), 1.0F, 1, true
-        ));
+        stack.set(DataComponents.TOOL, buildTool(mat, blocks));
         
         stack.set(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder()
             .add(Attributes.ATTACK_DAMAGE,
@@ -62,9 +59,19 @@ public interface EvolvingTool {
         stack.set(DataComponents.ENCHANTABLE, new Enchantable(mat.enchantmentValue()));
         stack.set(DataComponents.REPAIRABLE, new Repairable(items.getOrThrow(mat.repairItems())));
         stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(tier.getSerializedName()), List.of()));
-        
+        stack.set(DataComponents.RARITY, tier.getRarity());
+
         stack.set(ModDataComponents.TOOL_TIER.get(), tier);
         recalculateMaxDamage(stack);
+    }
+    
+    default Tool buildTool(ToolMaterial mat, HolderGetter<Block> blocks) {
+        return new Tool(
+            List.of(
+                Tool.Rule.deniesDrops(blocks.getOrThrow(mat.incorrectBlocksForDrops())),
+                Tool.Rule.minesAndDrops(blocks.getOrThrow(getMineableTag()), mat.speed())
+            ), 1.0F, 1, true
+        );
     }
     
     default void recalculateMaxDamage(ItemStack stack) {
@@ -72,8 +79,15 @@ public interface EvolvingTool {
         ToolLevelData level = stack.get(ModDataComponents.TOOL_LEVEL.get());
         if (tier == null || level == null) return;
         
-        int maxDamage = tier.getMaterial().durability() + (50 * tier.getDurabilityMultiplier() * level.level());
+        if (tier.isUnbreakable()) {
+             stack.remove(DataComponents.MAX_DAMAGE);
+             stack.remove(DataComponents.DAMAGE);
+             return;
+        }
         
+        if (!stack.has(DataComponents.DAMAGE)) stack.set(DataComponents.DAMAGE, 0);
+        
+        int maxDamage = tier.getMaterial().durability() + (50 * tier.getDurabilityMultiplier() * level.level());
         stack.set(DataComponents.MAX_DAMAGE, maxDamage);
     }
     
@@ -128,5 +142,12 @@ public interface EvolvingTool {
     
     default boolean enchantmentBlocked(Holder<Enchantment> enchantment) {
         return  enchantment.is(Enchantments.MENDING);
+    }
+    
+    default boolean tierAllowsDamage(ItemStack stack, DamageSource source) {
+        ToolTier tier = stack.get(ModDataComponents.TOOL_TIER.get());
+        if (tier == null || !tier.isDamageResistant()) return true;
+        
+        return !source.is(DamageTypeTags.IS_FIRE) && !source.is(DamageTypeTags.IS_EXPLOSION);
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -56,6 +57,12 @@ public class EvolvingPicaxe extends Item implements MiningEvolvingTool {
             return false;
         }
         return super.supportsEnchantment(stack, enchantment);
+    }
+    
+    @Override
+    public boolean canBeHurtBy(ItemStack stack, DamageSource source) {
+        if (!tierAllowsDamage(stack, source)) return false;
+        return super.canBeHurtBy(stack, source);
     }
     
     @Override

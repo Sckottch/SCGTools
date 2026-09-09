@@ -30,7 +30,7 @@ public abstract class ToolUpgrade {
         return displayName;
     }
     
-    private void onApply(ItemStack stack) {}
+    protected void onApply(ItemStack stack) {}
 //    public void onRemove(ItemStack stack) {}
     
     private UpgradeValidationResult canApplyTo(ItemStack stack, ToolTier toolTier) {

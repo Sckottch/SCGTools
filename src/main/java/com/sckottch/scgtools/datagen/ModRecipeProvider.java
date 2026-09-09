@@ -41,6 +41,24 @@ public class ModRecipeProvider extends RecipeProvider {
             .unlockedBy("has_flint", this.has(Items.FLINT))
             .save(this.output);
         
+        shaped(RecipeCategory.TOOLS, ModItems.AXE)
+            .pattern("FF")
+            .pattern("FS")
+            .pattern(" S")
+            .define('F', Items.FLINT)
+            .define('S', Items.STICK)
+            .unlockedBy("has_flint", this.has(Items.FLINT))
+            .save(this.output);
+        
+        shaped(RecipeCategory.TOOLS, ModItems.SWORD)
+            .pattern("F")
+            .pattern("F")
+            .pattern("S")
+            .define('F', Items.FLINT)
+            .define('S', Items.STICK)
+            .unlockedBy("has_flint", this.has(Items.FLINT))
+            .save(this.output);
+         
         Ingredient mendingBook = getMendingBook();
         new SimpleForgeRecipeBuilder(
             new ItemStackTemplate(ModItems.MENDING_GEM.get()),
@@ -50,6 +68,7 @@ public class ModRecipeProvider extends RecipeProvider {
             .xpCost(30)
             .save(this.output);
         
+        // Tiers
         new ToolForgeRecipeBuilder(
             Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
             new TierUpOperation(ToolTier.FLINT, ToolTier.IRON)
@@ -57,6 +76,25 @@ public class ModRecipeProvider extends RecipeProvider {
             .ingredient(Items.IRON_INGOT, 3)
             .save(this.output);
         
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            new TierUpOperation(ToolTier.IRON, ToolTier.DIAMOND)
+        )
+            .ingredient(Items.DIAMOND, 2)
+            .ingredient(Items.LAPIS_LAZULI, 2)
+            .ingredient(Items.REDSTONE,  1)
+            .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            new TierUpOperation(ToolTier.DIAMOND, ToolTier.NETHERITE)
+        )
+            .ingredient(Items.NETHERITE_INGOT, 1)
+            .ingredient(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 1)
+            .ingredient(Items.GOLD_INGOT, 1)
+            .save(this.output);
+        
+        //Upgrades
         new ToolForgeRecipeBuilder(
             Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
             new ApplyUpgradeOperation(ModUpgrades.MENDING.get())

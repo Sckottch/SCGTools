@@ -16,6 +16,12 @@ public class ModUpgrades {
     public static final Supplier<ToolUpgrade> MENDING =
         UPGRADES.register("mending", () -> new MendingUpgrade(ToolTier.FLINT, "Mending", ModTags.Items.EVOLVING_ITEM));
     
+    public static final Supplier<ToolUpgrade> ENCHANTMENT_I =
+        UPGRADES.register("enchantment_i", () -> new EnchantmentUpgrade(ToolTier.NETHERITE, "Enchantment I", ModTags.Items.EVOLVING_ITEM));
+    
+    public static final Supplier<ToolUpgrade> ENCHANTMENT_II =
+        UPGRADES.register("enchantment_ii", () -> new EnchantmentUpgrade(ToolTier.DRACONIC, "Enchantment II", ModTags.Items.EVOLVING_ITEM));
+    
     public static final Supplier<ToolUpgrade> HAMMER =
         UPGRADES.register("hammer", () -> new HammerUpgrade(ToolTier.IRON, "Hammer", ModTags.Items.MINING_TOOL));
     

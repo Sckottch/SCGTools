@@ -1,0 +1,23 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 2,
+      "ingredient": "minecraft:diamond"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:lapis_lazuli"
+    },
+    {
+      "count": 1,
+      "ingredient": "minecraft:redstone"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:tier_up",
+    "from": "iron",
+    "to": "diamond"
+  },
+  "tool": "#scgtools:evolving_tool"
+}

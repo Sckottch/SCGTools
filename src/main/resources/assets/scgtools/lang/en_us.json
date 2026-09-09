@@ -15,5 +15,8 @@
     "gui.scgtools.forge.already_applied": "Already Applied",
     "gui.scgtools.forge.no_slots": "No Upgrade Slots",
 
-    "key.scgtools.cycle_upgrade_mode": "Cycle Upgrade Mode"
+    "key.scgtools.cycle_upgrade_mode": "Cycle Upgrade Mode",
+
+    "gui.scgtools.jei.forge_recipes": "Forge Recipes",
+    "gui.scgtools.jei.forge_upgrades": "Forge Upgrades"
 }

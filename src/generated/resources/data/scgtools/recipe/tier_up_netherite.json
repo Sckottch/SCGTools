@@ -1,0 +1,23 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": "minecraft:netherite_ingot"
+    },
+    {
+      "count": 1,
+      "ingredient": "minecraft:netherite_upgrade_smithing_template"
+    },
+    {
+      "count": 1,
+      "ingredient": "minecraft:gold_ingot"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:tier_up",
+    "from": "diamond",
+    "to": "netherite"
+  },
+  "tool": "#scgtools:evolving_tool"
+}

@@ -29,6 +29,9 @@ public abstract class ToolUpgrade {
     public String getDisplayName() {
         return displayName;
     }
+    public TagKey<Item> getApplicableTo() {
+        return applicableTo;
+    }
     
     protected void onApply(ItemStack stack) {}
 //    public void onRemove(ItemStack stack) {}

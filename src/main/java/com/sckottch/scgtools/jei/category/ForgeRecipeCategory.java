@@ -40,15 +40,15 @@ public class ForgeRecipeCategory extends AbstractForgeCategory<ForgeDisplay> {
     private void setSimpleRecipe(IRecipeLayoutBuilder builder, ForgeDisplay.Simple simple) {
         SimpleForgeRecipe recipe = simple.holder().value();
 
-        builder.addInputSlot(MAIN_X, MAIN_Y).add(recipe.getMainItem());
-        builder.addOutputSlot(OUTPUT_X, OUTPUT_Y).add(recipe.getResult().create());
+        addMainInputSlot(builder).add(recipe.getMainItem());
+        addMainOutputSlot(builder).add(recipe.getResult().create());
     }
 
     private void setTierUpRecipe(IRecipeLayoutBuilder builder, ForgeDisplay.TierUp tierUp) {
         ItemStack input = ForgeStacks.toolAtTier(tierUp.tool(), tierUp.operation().from());
 
-        builder.addInputSlot(MAIN_X, MAIN_Y).add(input);
-        builder.addOutputSlot(OUTPUT_X, OUTPUT_Y).add(ForgeStacks.applyOperation(input, tierUp.operation()));
+        addMainInputSlot(builder).add(input);
+        addMainOutputSlot(builder).add(ForgeStacks.applyOperation(input, tierUp.operation()));
     }
 
     @Override

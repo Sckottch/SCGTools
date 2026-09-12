@@ -1,11 +1,13 @@
 package com.sckottch.scgtools.datagen;
 
+import com.sckottch.scgtools.block.ModBlocks;
 import com.sckottch.scgtools.datagen.custom.SimpleForgeRecipeBuilder;
 import com.sckottch.scgtools.datagen.custom.ToolForgeRecipeBuilder;
 import com.sckottch.scgtools.forge.operation.ApplyUpgradeOperation;
 import com.sckottch.scgtools.forge.operation.TierUpOperation;
 import com.sckottch.scgtools.item.ModItems;
 import com.sckottch.scgtools.item.tools.upgrades.ModUpgrades;
+import com.sckottch.scgtools.recipe.ToolRepairRecipe;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.tags.ModTags;
 import net.minecraft.core.HolderLookup;
@@ -15,9 +17,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
@@ -32,6 +37,25 @@ public class ModRecipeProvider extends RecipeProvider {
     
     @Override
     protected void buildRecipes() {
+        //Recipes
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.FORGE)
+            .pattern("III")
+            .pattern("DCD")
+            .pattern("DDD")
+            .define('I', Items.IRON_INGOT)
+            .define('D', Items.COBBLED_DEEPSLATE)
+            .define('C', Items.CRAFTING_TABLE)
+            .unlockedBy("has_iron", this.has(Items.IRON_INGOT))
+            .save(this.output);
+        
+        shapeless(RecipeCategory.MISC, Items.FLINT)
+            .requires(Items.GRAVEL, 3)
+            .unlockedBy("has_gravel", this.has(Items.GRAVEL))
+            .save(this.output, "scgtools:flint");
+        
+        SpecialRecipeBuilder.special(ToolRepairRecipe::new).save(this.output, "scgtools:tool_repair");
+        
+        //Tools
         shaped(RecipeCategory.TOOLS, ModItems.PICKAXE)
             .pattern("FFF")
             .pattern(" S ")
@@ -59,7 +83,8 @@ public class ModRecipeProvider extends RecipeProvider {
             .unlockedBy("has_flint", this.has(Items.FLINT))
             .save(this.output);
          
-        Ingredient mendingBook = getMendingBook();
+        // Forge Recipes
+        Ingredient mendingBook = getEnchantedBook(Enchantments.MENDING, 1);
         new SimpleForgeRecipeBuilder(
             new ItemStackTemplate(ModItems.MENDING_GEM.get()),
             Ingredient.of(Items.DIAMOND)
@@ -106,7 +131,7 @@ public class ModRecipeProvider extends RecipeProvider {
             .save(this.output);
         
         new ToolForgeRecipeBuilder(
-            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.MINING_TOOL)),
             new ApplyUpgradeOperation(ModUpgrades.HAMMER.get())
         )
             .ingredient(Items.IRON_BLOCK, 3)
@@ -114,11 +139,24 @@ public class ModRecipeProvider extends RecipeProvider {
             .ingredient(Items.DIAMOND, 2)
             .ingredient(Items.IRON_PICKAXE, 2)
             .save(this.output);
+        
+        Ingredient efficiencyVBook = getEnchantedBook(Enchantments.EFFICIENCY, 5);
+        Ingredient sharpnessVBook = getEnchantedBook(Enchantments.SHARPNESS, 5);
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            new ApplyUpgradeOperation(ModUpgrades.ENCHANTMENT_I.get())
+        )
+            .ingredient(Items.DIAMOND_BLOCK, 2)
+            .ingredient(Items.GOLD_BLOCK, 2)
+            .ingredient(new SizedIngredient(efficiencyVBook, 1))
+            .ingredient(new SizedIngredient(sharpnessVBook, 1))
+            .xpCost(45)
+            .save(this.output);
     }
     
-    private Ingredient getMendingBook() {
+    private Ingredient getEnchantedBook(ResourceKey<Enchantment> enchantment, int level) {
         ItemEnchantments.Mutable enchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
-        enchants.set(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.MENDING), 1);
+        enchants.set(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantment), level);
         
         return DataComponentIngredient.of(
             false, DataComponents.STORED_ENCHANTMENTS, enchants.toImmutable(), Items.ENCHANTED_BOOK

@@ -12,6 +12,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.types.IRecipeType;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -24,11 +25,14 @@ public class ForgeUpgradeCategory extends AbstractForgeCategory<ForgeUpgradeDisp
     public static final IRecipeType<ForgeUpgradeDisplay> TYPE =
         IRecipeType.create(SCGTools.MOD_ID, "forge_upgrades", ForgeUpgradeDisplay.class);
 
+    private static final int TITLE_HEIGHT = 13;
+
     public ForgeUpgradeCategory(IGuiHelper guiHelper) {
         super(TYPE,
             Component.translatable("gui.scgtools.jei.forge_upgrades"),
             guiHelper.createDrawableItemLike(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-            guiHelper
+            guiHelper,
+            TITLE_HEIGHT
         );
     }
 
@@ -40,11 +44,11 @@ public class ForgeUpgradeCategory extends AbstractForgeCategory<ForgeUpgradeDisp
         List<ItemStack> inputs = ForgeStacks.toolsFromTier(upgrade.getApplicableTo(), upgrade.getMinTier());
         List<ItemStack> outputs = ForgeStacks.applyOperation(inputs, operation(display));
 
-        IRecipeSlotBuilder input = builder.addInputSlot(MAIN_X, MAIN_Y)
+        IRecipeSlotBuilder input = addMainInputSlot(builder)
             .setSlotName(INPUT_SLOT)
             .addItemStacks(inputs);
 
-        IRecipeSlotBuilder output = builder.addOutputSlot(OUTPUT_X, OUTPUT_Y)
+        IRecipeSlotBuilder output = addMainOutputSlot(builder)
             .setSlotName(OUTPUT_SLOT)
             .addItemStacks(outputs);
 
@@ -59,6 +63,7 @@ public class ForgeUpgradeCategory extends AbstractForgeCategory<ForgeUpgradeDisp
 
     @Override
     public void draw(ForgeUpgradeDisplay display, IRecipeSlotsView slotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
+        drawHeader(graphics, Component.literal(display.upgrade().getDisplayName()).withStyle(ChatFormatting.UNDERLINE));
         drawForge(graphics, display.xpCost());
     }
 

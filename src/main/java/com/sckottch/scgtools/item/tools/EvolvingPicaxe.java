@@ -18,6 +18,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -66,8 +67,25 @@ public class EvolvingPicaxe extends Item implements MiningEvolvingTool {
     }
     
     @Override
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
+        return getDamageItem(stack, amount);
+    }
+    
+    @Override
+    public float getDestroySpeed(ItemStack itemStack, BlockState state) {
+        if (isDepleted(itemStack)) return 1.0F;
+        return super.getDestroySpeed(itemStack, state);
+    }
+    
+    @Override
+    public boolean isCorrectToolForDrops(ItemStack itemStack, BlockState state) {
+        if (isDepleted(itemStack)) return false;
+        return super.isCorrectToolForDrops(itemStack, state);
+    }
+    
+    @Override
     public int xpForNextLevel(int level) {
-        return 2 * (level + 1);
+        return 100 * (level + 1);
     }
     
     @Override

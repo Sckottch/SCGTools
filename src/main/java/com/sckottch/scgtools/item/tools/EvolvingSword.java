@@ -18,6 +18,8 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -47,6 +49,23 @@ public class EvolvingSword extends Item implements EvolvingTool {
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
         if (enchantmentBlocked(enchantment)) return false;
         return super.supportsEnchantment(stack, enchantment);
+    }
+    
+    @Override
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
+        return getDamageItem(stack, amount);
+    }
+    
+    @Override
+    public float getDestroySpeed(ItemStack itemStack, BlockState state) {
+        if (isDepleted(itemStack)) return 1.0F;
+        return super.getDestroySpeed(itemStack, state);
+    }
+    
+    @Override
+    public boolean isCorrectToolForDrops(ItemStack itemStack, BlockState state) {
+        if (isDepleted(itemStack)) return false;
+        return super.isCorrectToolForDrops(itemStack, state);
     }
     
     @Override
@@ -83,6 +102,6 @@ public class EvolvingSword extends Item implements EvolvingTool {
     
     @Override
     public int xpForNextLevel(int level) {
-        return (level + 1) * 2;
+        return (level + 1) * 100;
     }
 }

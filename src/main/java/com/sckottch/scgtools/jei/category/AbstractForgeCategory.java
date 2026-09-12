@@ -13,6 +13,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -34,24 +35,35 @@ public abstract class AbstractForgeCategory<T> extends AbstractRecipeCategory<T>
     private static final int MATERIAL_STEP = 18;
     private static final int MATERIAL_COLUMNS = 2;
 
-    protected static final int MAIN_X = 68;
-    protected static final int MAIN_Y = 23;
-    protected static final int OUTPUT_X = 148;
-    protected static final int OUTPUT_Y = 23;
+    private static final int MAIN_X = 68;
+    private static final int MAIN_Y = 23;
+    private static final int OUTPUT_X = 148;
+    private static final int OUTPUT_Y = 23;
 
     private static final int XP_CENTER_X = 116;
     private static final int XP_Y = 13;
     private static final int XP_COLOR = 0xFF80FF20;
 
+    private static final int HEADER_TEXT_Y = 2;
+    private static final int HEADER_COLOR = 0xFF404040;
+
     protected static final String INPUT_SLOT = "main_input";
     protected static final String OUTPUT_SLOT = "main_output";
 
     private final IDrawable background;
+    private final int headerHeight;
 
     protected AbstractForgeCategory(IRecipeType<T> recipeType, Component title, IDrawable icon, IGuiHelper guiHelper) {
-        super(recipeType, title, icon, WIDTH, HEIGHT);
+        this(recipeType, title, icon, guiHelper, 0);
+    }
+
+    // headerHeight reserva espaço acima da forja para um título por receita; toda a
+    // arte e os slots são deslocados para baixo por esse valor
+    protected AbstractForgeCategory(IRecipeType<T> recipeType, Component title, IDrawable icon, IGuiHelper guiHelper, int headerHeight) {
+        super(recipeType, title, icon, WIDTH, HEIGHT + headerHeight);
 
         this.background = guiHelper.createDrawable(ForgeScreen.TEXTURE, CROP_U, CROP_V, WIDTH, HEIGHT);
+        this.headerHeight = headerHeight;
     }
 
     protected void addMaterialSlots(IRecipeLayoutBuilder builder, List<SizedIngredient> materials) {
@@ -59,19 +71,34 @@ public abstract class AbstractForgeCategory<T> extends AbstractRecipeCategory<T>
 
         for (int i = 0; i < count; i++) {
             int x = MATERIAL_X + (i % MATERIAL_COLUMNS) * MATERIAL_STEP;
-            int y = MATERIAL_Y + (i / MATERIAL_COLUMNS) * MATERIAL_STEP;
+            int y = MATERIAL_Y + (i / MATERIAL_COLUMNS) * MATERIAL_STEP + headerHeight;
 
             IRecipeSlotBuilder slot = builder.addInputSlot(x, y);
             slot.addItemStacks(ForgeStacks.materialStacks(materials.get(i), slot.getContextMap()));
         }
     }
 
+    protected IRecipeSlotBuilder addMainInputSlot(IRecipeLayoutBuilder builder) {
+        return builder.addInputSlot(MAIN_X, MAIN_Y + headerHeight);
+    }
+
+    protected IRecipeSlotBuilder addMainOutputSlot(IRecipeLayoutBuilder builder) {
+        return builder.addOutputSlot(OUTPUT_X, OUTPUT_Y + headerHeight);
+    }
+
     protected void drawForge(GuiGraphicsExtractor graphics, int xpCost) {
-        background.draw(graphics);
+        background.draw(graphics, 0, headerHeight);
 
         if (xpCost <= 0) return;
 
-        graphics.centeredText(Minecraft.getInstance().font, String.valueOf(xpCost), XP_CENTER_X, XP_Y, XP_COLOR);
+        graphics.centeredText(Minecraft.getInstance().font, String.valueOf(xpCost), XP_CENTER_X, XP_Y + headerHeight, XP_COLOR);
+    }
+
+    protected void drawHeader(GuiGraphicsExtractor graphics, Component text) {
+        Font font = Minecraft.getInstance().font;
+        int x = (WIDTH - font.width(text)) / 2;
+
+        graphics.text(font, text, x, HEADER_TEXT_Y, HEADER_COLOR, false);
     }
 
     protected void syncOutput(List<IRecipeSlotDrawable> slots, ForgeOperation operation) {

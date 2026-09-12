@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "minecraft:crafting_table",
+    "D": "minecraft:cobbled_deepslate",
+    "I": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "III",
+    "DCD",
+    "DDD"
+  ],
+  "result": {
+    "id": "scgtools:forge"
+  }
+}

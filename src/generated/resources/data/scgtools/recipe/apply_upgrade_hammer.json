@@ -22,5 +22,5 @@
     "type": "scgtools:apply_upgrade",
     "upgrade": "scgtools:hammer"
   },
-  "tool": "#scgtools:evolving_tool"
+  "tool": "#scgtools:mining_tool"
 }

@@ -8,6 +8,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -21,7 +22,7 @@ public class ModModelProvider extends ModelProvider {
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.MENDING_GEM.get(), ModelTemplates.FLAT_ITEM);
-        blockModels.createTrivialCube(ModBlocks.FORGE.get());
+        blockModels.createTrivialBlock(ModBlocks.FORGE.get(), TexturedModel.CUBE_TOP_BOTTOM);
         
         setEvolvingModels(ModItems.PICKAXE.get(), itemModels);
         setEvolvingModels(ModItems.AXE.get(), itemModels);

@@ -30,6 +30,9 @@ public class ModRecipes {
         RECIPE_SERIALIZERS.register("forge_tool",
             () -> new RecipeSerializer<>(ToolForgeRecipe.CODEC, ToolForgeRecipe.STREAM_CODEC));
     
+    public static final Supplier<RecipeSerializer<ToolRepairRecipe>> TOOL_REPAIR_SERIALIZAR =
+        RECIPE_SERIALIZERS.register("tool_repair", () -> ToolRepairRecipe.SERIALIZER);
+    
     public static void register(IEventBus bus) {
         RECIPE_TYPES.register(bus);
         RECIPE_SERIALIZERS.register(bus);

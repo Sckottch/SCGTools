@@ -126,7 +126,7 @@ public interface EvolvingTool {
             if (level.level() == ToolLevelData.MAX_LEVEL) {
                 builder.accept(Component.literal("Lv: " + level.level() + " (MAX)"));
             } else {
-                builder.accept(Component.literal("Lv: " + level.level() + " (XP: " + level.xp() + ")"));
+                builder.accept(Component.literal("Lv: " + level.level() + " (XP: " + level.xp() + "/" + xpForNextLevel(level.level()) + ")"));
             }
         }
         
@@ -140,6 +140,18 @@ public interface EvolvingTool {
         }
     }
     
+    default int getDamageItem(ItemStack stack, int amount) {
+        int max = stack.getMaxDamage();
+        int current = stack.getDamageValue();
+        
+        if (current + amount >= max) {
+            stack.setDamageValue(max);
+            return 0;
+        }
+        
+        return amount;
+    }
+    
     default boolean enchantmentBlocked(Holder<Enchantment> enchantment) {
         return  enchantment.is(Enchantments.MENDING);
     }
@@ -149,5 +161,9 @@ public interface EvolvingTool {
         if (tier == null || !tier.isDamageResistant()) return true;
         
         return !source.is(DamageTypeTags.IS_FIRE) && !source.is(DamageTypeTags.IS_EXPLOSION);
+    }
+    
+    default boolean isDepleted(ItemStack stack) {
+        return stack.isDamageableItem() && stack.getDamageValue() >= stack.getMaxDamage();
     }
 }

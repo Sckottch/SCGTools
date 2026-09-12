@@ -18,7 +18,7 @@ public class ModToolMaterials {
         BlockTags.INCORRECT_FOR_NETHERITE_TOOL,
         3031,
         15.0F,
-        5.0F,
+        6.0F,
         25,
         ModTags.Items.DRACONIC_REPAIR_ITEMS
     );

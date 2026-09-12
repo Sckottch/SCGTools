@@ -11,15 +11,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -64,6 +62,23 @@ public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
     }
     
     @Override
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
+        return getDamageItem(stack, amount);
+    }
+    
+    @Override
+    public float getDestroySpeed(ItemStack itemStack, BlockState state) {
+        if (isDepleted(itemStack)) return 1.0F;
+        return super.getDestroySpeed(itemStack, state);
+    }
+    
+    @Override
+    public boolean isCorrectToolForDrops(ItemStack itemStack, BlockState state) {
+        if (isDepleted(itemStack)) return false;
+        return super.isCorrectToolForDrops(itemStack, state);
+    }
+    
+    @Override
     public boolean canBeHurtBy(ItemStack stack, DamageSource source) {
         if (!tierAllowsDamage(stack, source)) return false;
         return super.canBeHurtBy(stack, source);
@@ -71,7 +86,7 @@ public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
     
     @Override
     public int xpForNextLevel(int level) {
-        return 2 * (level + 1);
+        return 100 * (level + 1);
     }
     
     @Override

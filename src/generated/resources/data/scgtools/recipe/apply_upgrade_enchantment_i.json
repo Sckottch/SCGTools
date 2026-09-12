@@ -1,0 +1,43 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 2,
+      "ingredient": "minecraft:diamond_block"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:gold_block"
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "neoforge:ingredient_type": "neoforge:components",
+        "components": {
+          "minecraft:stored_enchantments": {
+            "minecraft:efficiency": 5
+          }
+        },
+        "items": "minecraft:enchanted_book"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "neoforge:ingredient_type": "neoforge:components",
+        "components": {
+          "minecraft:stored_enchantments": {
+            "minecraft:sharpness": 5
+          }
+        },
+        "items": "minecraft:enchanted_book"
+      }
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:enchantment_i"
+  },
+  "tool": "#scgtools:evolving_tool",
+  "xp_cost": 45
+}

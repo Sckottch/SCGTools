@@ -2,6 +2,8 @@
   "values": [
     "scgtools:pickaxe",
     "scgtools:axe",
-    "scgtools:sword"
+    "scgtools:sword",
+    "scgtools:shovel",
+    "scgtools:hoe"
   ]
 }

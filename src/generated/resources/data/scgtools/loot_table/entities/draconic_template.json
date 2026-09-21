@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 6.0E-4,
+            "per_level_above_first": 1.0E-4
+          },
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 5.0E-4
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scgtools:draconic_template"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "scgtools:entities/draconic_template"
+}

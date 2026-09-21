@@ -36,7 +36,10 @@ public interface EvolvingTool {
     TagKey<Block> getMineableTag();
     float getBaseAttackDamage();
     float getBaseAttackSpeed();
-    int xpForNextLevel(int level);
+    
+    default int xpForNextLevel(int level) {
+        return 100 * (level + 1);
+    }
     
     default void applyTier(ItemStack stack, ToolTier tier, HolderLookup.Provider lookup) {
         ToolMaterial mat = tier.getMaterial();

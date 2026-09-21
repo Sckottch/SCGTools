@@ -22,11 +22,16 @@ public class ModModelProvider extends ModelProvider {
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         itemModels.generateFlatItem(ModItems.MENDING_GEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.DRAGON_TOOTH.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.DRACONIC_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+        
         blockModels.createTrivialBlock(ModBlocks.FORGE.get(), TexturedModel.CUBE_TOP_BOTTOM);
         
         setEvolvingModels(ModItems.PICKAXE.get(), itemModels);
         setEvolvingModels(ModItems.AXE.get(), itemModels);
         setEvolvingModels(ModItems.SWORD.get(), itemModels);
+        setEvolvingModels(ModItems.SHOVEL.get(), itemModels);
+        setEvolvingModels(ModItems.HOE.get(), itemModels);
     }
     
     private void setEvolvingModels(Item evolvingItem, ItemModelGenerators itemModels) {

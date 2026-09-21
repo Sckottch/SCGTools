@@ -1,0 +1,47 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/hoe_flint"
+        },
+        "when": "flint"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/hoe_iron"
+        },
+        "when": "iron"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/hoe_diamond"
+        },
+        "when": "diamond"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/hoe_netherite"
+        },
+        "when": "netherite"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "scgtools:item/hoe_draconic"
+        },
+        "when": "draconic"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "scgtools:item/hoe_flint"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

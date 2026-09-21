@@ -28,8 +28,10 @@ public class SCGToolsDataGen {
         generator.addProvider(true, new ModRecipeProvider.Runner(output, lookup));
         generator.addProvider(true, new LootTableProvider(output, Collections.emptySet(),
             List.of(
-                new LootTableProvider.SubProviderEntry(ModBlockLootProvider::new, LootContextParamSets.BLOCK)
+                new LootTableProvider.SubProviderEntry(ModBlockLootProvider::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(ModEntityLootProvider::new, LootContextParamSets.ENTITY)
             ), lookup)
         );
+        generator.addProvider(true, new ModLootModifierProvider(output, lookup));
     }
 }

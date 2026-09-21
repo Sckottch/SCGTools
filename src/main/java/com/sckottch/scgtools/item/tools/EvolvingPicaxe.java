@@ -54,9 +54,7 @@ public class EvolvingPicaxe extends Item implements MiningEvolvingTool {
     
     @Override
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
-        if (enchantmentBlocked(enchantment)) {
-            return false;
-        }
+        if (enchantmentBlocked(enchantment)) return false;
         return super.supportsEnchantment(stack, enchantment);
     }
     
@@ -81,11 +79,6 @@ public class EvolvingPicaxe extends Item implements MiningEvolvingTool {
     public boolean isCorrectToolForDrops(ItemStack itemStack, BlockState state) {
         if (isDepleted(itemStack)) return false;
         return super.isCorrectToolForDrops(itemStack, state);
-    }
-    
-    @Override
-    public int xpForNextLevel(int level) {
-        return 100 * (level + 1);
     }
     
     @Override

@@ -82,7 +82,25 @@ public class ModRecipeProvider extends RecipeProvider {
             .define('S', Items.STICK)
             .unlockedBy("has_flint", this.has(Items.FLINT))
             .save(this.output);
-         
+        
+        shaped(RecipeCategory.TOOLS, ModItems.SHOVEL)
+            .pattern("F")
+            .pattern("S")
+            .pattern("S")
+            .define('F', Items.FLINT)
+            .define('S', Items.STICK)
+            .unlockedBy("has_flint", this.has(Items.FLINT))
+            .save(this.output);
+        
+        shaped(RecipeCategory.TOOLS, ModItems.HOE)
+            .pattern("FF")
+            .pattern(" S")
+            .pattern(" S")
+            .define('F', Items.FLINT)
+            .define('S', Items.STICK)
+            .unlockedBy("has_flint", this.has(Items.FLINT))
+            .save(this.output);
+        
         // Forge Recipes
         Ingredient mendingBook = getEnchantedBook(Enchantments.MENDING, 1);
         new SimpleForgeRecipeBuilder(
@@ -119,6 +137,16 @@ public class ModRecipeProvider extends RecipeProvider {
             .ingredient(Items.GOLD_INGOT, 1)
             .save(this.output);
         
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            new TierUpOperation(ToolTier.NETHERITE, ToolTier.DRACONIC)
+        )
+            .ingredient(Items.NETHER_STAR, 1)
+            .ingredient(ModItems.DRAGON_TOOTH, 2)
+            .ingredient(ModItems.DRACONIC_TEMPLATE, 1)
+            .ingredient(Items.NETHERITE_INGOT, 1)
+            .save(this.output);
+        
         //Upgrades
         new ToolForgeRecipeBuilder(
             Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
@@ -151,6 +179,19 @@ public class ModRecipeProvider extends RecipeProvider {
             .ingredient(new SizedIngredient(efficiencyVBook, 1))
             .ingredient(new SizedIngredient(sharpnessVBook, 1))
             .xpCost(45)
+            .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.EVOLVING_ITEM)),
+            new ApplyUpgradeOperation(ModUpgrades.ENCHANTMENT_II.get())
+        )
+            .ingredient(Items.NETHER_STAR, 1)
+            .ingredient(ModItems.DRAGON_TOOTH, 2)
+            .ingredient(Items.DIAMOND_BLOCK, 3)
+            .ingredient(Items.GOLD_BLOCK, 5)
+            .ingredient(Items.EMERALD_BLOCK, 10)
+            .ingredient(Items.DRAGON_BREATH, 8)
+            .xpCost(60)
             .save(this.output);
     }
     

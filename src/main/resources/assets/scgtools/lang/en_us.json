@@ -3,9 +3,14 @@
     "itemGroup.scgtools.tools": "SCGTools Tools",
 
     "item.scgtools.mending_gem": "Mending Gem",
+    "item.scgtools.dragon_tooth": "Dragon Tooth",
+    "item.scgtools.draconic_template": "Draconic Template",
+
     "item.scgtools.pickaxe": "Pickaxe",
     "item.scgtools.axe": "Axe",
     "item.scgtools.sword": "Sword",
+    "item.scgtools.shovel": "Shovel",
+    "item.scgtools.hoe": "Hoe",
 
     "block.scgtools.forge": "Forge",
 

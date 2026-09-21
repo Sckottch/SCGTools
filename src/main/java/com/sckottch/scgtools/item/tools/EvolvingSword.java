@@ -40,7 +40,7 @@ public class EvolvingSword extends Item implements EvolvingTool {
         super.postHurtEnemy(itemStack, mob, attacker);
         
         if (!(attacker.level() instanceof ServerLevel level)) return;
-        if(!(mob.isDeadOrDying())) return;
+        if (!(mob.isDeadOrDying())) return;
         
         addXp(itemStack, mob.getExperienceReward(level, attacker));
     }
@@ -98,10 +98,5 @@ public class EvolvingSword extends Item implements EvolvingTool {
     @Override
     public float getBaseAttackSpeed() {
         return -2.4F;
-    }
-    
-    @Override
-    public int xpForNextLevel(int level) {
-        return (level + 1) * 100;
     }
 }

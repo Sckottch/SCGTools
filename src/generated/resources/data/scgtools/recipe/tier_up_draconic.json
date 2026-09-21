@@ -1,0 +1,27 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": "minecraft:nether_star"
+    },
+    {
+      "count": 2,
+      "ingredient": "scgtools:dragon_tooth"
+    },
+    {
+      "count": 1,
+      "ingredient": "scgtools:draconic_template"
+    },
+    {
+      "count": 1,
+      "ingredient": "minecraft:netherite_ingot"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:tier_up",
+    "from": "netherite",
+    "to": "draconic"
+  },
+  "tool": "#scgtools:evolving_tool"
+}

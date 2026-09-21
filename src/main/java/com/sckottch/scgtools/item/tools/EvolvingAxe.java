@@ -85,11 +85,6 @@ public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
     }
     
     @Override
-    public int xpForNextLevel(int level) {
-        return 100 * (level + 1);
-    }
-    
-    @Override
     public float getBaseAttackDamage() {
         return 7.0F;
     }

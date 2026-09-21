@@ -33,9 +33,11 @@ public class ModCreativeTab {
             .title(Component.translatable("itemGroup.scgtools.tools"))
             .icon(() -> new ItemStack(ModItems.PICKAXE.get()))
             .displayItems((params, out) -> {
-                addEvolvingTool(ModItems.PICKAXE.get(), params, out);
-                addEvolvingTool(ModItems.AXE.get(), params, out);
                 addEvolvingTool(ModItems.SWORD.get(), params, out);
+                addEvolvingTool(ModItems.PICKAXE.get(), params, out);
+                addEvolvingTool(ModItems.SHOVEL.get(), params, out);
+                addEvolvingTool(ModItems.AXE.get(), params, out);
+                addEvolvingTool(ModItems.HOE.get(), params, out);
             })
             .build()
         );
@@ -44,7 +46,7 @@ public class ModCreativeTab {
         for (ToolTier tier : ToolTier.values()) {
             if (!(item instanceof EvolvingTool tool)) return;
             ItemStack stack = new ItemStack(item);
-            tool.applyTier(stack, tier,params.holders());
+            tool.applyTier(stack, tier, params.holders());
             out.accept(stack);
         }
     }

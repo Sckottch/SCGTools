@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +56,13 @@ public class EvolvingAxe extends AxeItem implements MiningEvolvingTool {
         return changeMiningMode(level, player, hand);
     }
     
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        InteractionResult result = super.useOn(context);
+        if (result.consumesAction()) useOnArea(context, super::useOn, false);
+        return result;
+    }
+
     @Override
     public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
         if (enchantmentBlocked(enchantment)) return false;

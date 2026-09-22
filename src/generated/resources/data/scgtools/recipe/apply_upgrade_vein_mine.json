@@ -1,0 +1,26 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": "minecraft:diamond_pickaxe"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:raw_iron_block"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:raw_gold_block"
+    },
+    {
+      "count": 5,
+      "ingredient": "minecraft:lapis_block"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:vein_mine"
+  },
+  "tool": "scgtools:pickaxe"
+}

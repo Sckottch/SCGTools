@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +50,22 @@ public class EvolvingHoe extends HoeItem implements MiningEvolvingTool {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!player.isShiftKeyDown()) return super.use(level, player, hand);
         return changeMiningMode(level, player, hand);
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        InteractionResult result = tillAndGrantXp(context);
+        if (result.consumesAction()) useOnArea(context, this::tillAndGrantXp, true);
+        return result;
+    }
+
+    private InteractionResult tillAndGrantXp(UseOnContext context) {
+        InteractionResult result = super.useOn(context);
+        if (result.consumesAction() && !context.getLevel().isClientSide()) {
+            addXp(context.getItemInHand(), 1);
+        }
+
+        return result;
     }
     
     @Override

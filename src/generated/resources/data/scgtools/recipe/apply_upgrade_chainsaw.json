@@ -1,0 +1,26 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": "minecraft:diamond_axe"
+    },
+    {
+      "count": 32,
+      "ingredient": "#minecraft:logs"
+    },
+    {
+      "count": 32,
+      "ingredient": "#minecraft:leaves"
+    },
+    {
+      "count": 32,
+      "ingredient": "minecraft:bone_meal"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:chainsaw"
+  },
+  "tool": "scgtools:axe"
+}

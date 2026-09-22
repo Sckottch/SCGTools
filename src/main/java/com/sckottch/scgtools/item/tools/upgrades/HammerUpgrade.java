@@ -51,7 +51,10 @@ public class HammerUpgrade extends ToolUpgrade implements BlockBreakingUpgrade {
         HitResult hit = player.pick(player.blockInteractionRange(), 1.0F, false);
         if (hit.getType() != HitResult.Type.BLOCK) return List.of();
         
-        Direction.Axis axis = ((BlockHitResult) hit).getDirection().getAxis();
+        return getAreaPositions(tool, origin, ((BlockHitResult) hit).getDirection().getAxis());
+    }
+
+    public List<BlockPos> getAreaPositions(ItemStack tool, BlockPos origin, Direction.Axis axis) {
         int range = getMode(tool).getRange();
         List<BlockPos> positions = new ArrayList<>();
         

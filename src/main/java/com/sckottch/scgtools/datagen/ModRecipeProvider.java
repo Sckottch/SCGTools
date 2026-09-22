@@ -19,6 +19,8 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -189,9 +191,34 @@ public class ModRecipeProvider extends RecipeProvider {
             .ingredient(ModItems.DRAGON_TOOTH, 2)
             .ingredient(Items.DIAMOND_BLOCK, 3)
             .ingredient(Items.GOLD_BLOCK, 5)
-            .ingredient(Items.EMERALD_BLOCK, 10)
+            .ingredient(Items.ECHO_SHARD, 3)
             .ingredient(Items.DRAGON_BREATH, 8)
             .xpCost(60)
+            .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(ModItems.PICKAXE.get()),
+            new ApplyUpgradeOperation(ModUpgrades.VEIN_MINE.get())
+        )
+            .ingredient(Items.DIAMOND_PICKAXE, 1)
+            .ingredient(Items.RAW_IRON_BLOCK, 2)
+            .ingredient(Items.RAW_GOLD_BLOCK, 2)
+            .ingredient(Items.LAPIS_BLOCK, 5)
+            .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(ModItems.AXE.get()),
+            new ApplyUpgradeOperation(ModUpgrades.CHAINSAW.get())
+        )
+            .ingredient(Items.DIAMOND_AXE, 1)
+            .ingredient(new SizedIngredient(
+                Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.LOGS)),
+                32))
+            .ingredient(new SizedIngredient(
+                Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.LEAVES)),
+                32
+            ))
+            .ingredient(Items.BONE_MEAL, 32)
             .save(this.output);
     }
     

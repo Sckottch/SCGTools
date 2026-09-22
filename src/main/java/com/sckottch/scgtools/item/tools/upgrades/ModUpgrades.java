@@ -4,6 +4,7 @@ import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.registries.ModRegistries;
 import com.sckottch.scgtools.utility.tags.ModTags;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -24,6 +25,12 @@ public class ModUpgrades {
     
     public static final Supplier<ToolUpgrade> HAMMER =
         UPGRADES.register("hammer", () -> new HammerUpgrade(ToolTier.IRON, "Hammer", ModTags.Items.MINING_TOOL));
+    
+    public static final Supplier<ToolUpgrade> VEIN_MINE =
+        UPGRADES.register("vein_mine", () -> new VeinMineUpgrade(ToolTier.DIAMOND, "Vein Mine", ItemTags.PICKAXES));
+    
+    public static final Supplier<ToolUpgrade> CHAINSAW =
+        UPGRADES.register("chainsaw", () -> new ChainsawUpgrade(ToolTier.IRON, "Chainsaw", ItemTags.AXES));
     
     public static void register(IEventBus eventBus) {
         UPGRADES.register(eventBus);

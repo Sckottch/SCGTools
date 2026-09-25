@@ -177,7 +177,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
             if (!holder.value().matchesInputs(input)) continue;
 
             UpgradeValidationResult result = holder.value().getOperation().validate(input.main());
-            if (!result.isOk()) return result;
+            if (result.isReported()) return result;
         }
 
         return UpgradeValidationResult.OK;

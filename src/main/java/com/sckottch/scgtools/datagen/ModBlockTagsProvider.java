@@ -2,8 +2,10 @@ package com.sckottch.scgtools.datagen;
 
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.block.ModBlocks;
+import com.sckottch.scgtools.utility.tags.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.tags.BlockTags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 
@@ -18,5 +20,15 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.FORGE.getKey());
         tag(BlockTags.NEEDS_STONE_TOOL).add(ModBlocks.FORGE.getKey());
+
+        tag(BlockTags.SUPPORTS_CROPS).add(ModBlocks.FERTILIZED_FARMLAND.getKey());
+        tag(BlockTags.GROWS_CROPS).add(ModBlocks.FERTILIZED_FARMLAND.getKey());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.FERTILIZED_FARMLAND.getKey());
+
+        tag(ModTags.Blocks.COMPACTABLE)
+            .addTag(BlockTags.DIRT)
+            .addTag(BlockTags.GRASS_BLOCKS)
+            .add(BlockItemIds.DIRT_PATH.block());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.COMPACTED_EARTH.getKey());
     }
 }

@@ -111,10 +111,8 @@ public class ForgeMenu extends AbstractContainerMenu {
             slot.onTake(player, stack);
         } else if (index < ForgeBlockEntity.TOTAL_SLOTS) {
             if (!moveItemStackTo(stack, ForgeBlockEntity.TOTAL_SLOTS, this.slots.size(), true)) return ItemStack.EMPTY;
-        } else if (stack.is(ModTags.Items.FORGE_MAIN)) {
-            Slot mainSlot = this.slots.get(ForgeBlockEntity.MAIN_SLOT);
-            if (mainSlot.hasItem()) return ItemStack.EMPTY;
-            mainSlot.set(stack.split(1));
+        } else if (stack.is(ModTags.Items.FORGE_MAIN) && !this.slots.get(ForgeBlockEntity.MAIN_SLOT).hasItem()) {
+            this.slots.get(ForgeBlockEntity.MAIN_SLOT).set(stack.split(1));
         } else {
             if (!moveItemStackTo(stack, 0, ForgeBlockEntity.RECIPE_SLOTS, false)) return ItemStack.EMPTY;
         }

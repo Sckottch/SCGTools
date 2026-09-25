@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -87,20 +88,50 @@ public interface MiningEvolvingTool extends EvolvingTool {
         return InteractionResult.CONSUME;
     }
 
-    default void useOnArea(UseOnContext context, Function<UseOnContext, InteractionResult> action, boolean horizontalOnly) {
-        if (!(context.getLevel() instanceof ServerLevel)) return;
-
-        ItemStack stack = context.getItemInHand();
-        if (stack.getOrDefault(ModDataComponents.MINING_MODE.get(), MiningMode.NORMAL) != MiningMode.HAMMER) return;
+    @Override
+    default void handleCycleKey(ServerPlayer player, ItemStack stack) {
+        MiningMode mode = stack.getOrDefault(ModDataComponents.MINING_MODE.get(), MiningMode.NORMAL);
+        if (mode == MiningMode.NORMAL) return;
 
         List<ToolUpgrade> upgrades = stack.get(ModDataComponents.TOOL_UPGRADES.get());
         if (upgrades == null) return;
 
         for (ToolUpgrade upgrade : upgrades) {
-            if (!(upgrade instanceof HammerUpgrade hammer)) continue;
+            if (upgrade instanceof BlockBreakingUpgrade breaker && breaker.getMiningMode() == mode) {
+                breaker.cycleUpgradeMode(stack);
 
-            Direction.Axis axis = horizontalOnly ? Direction.Axis.Y : context.getClickedFace().getAxis();
-            for (BlockPos pos : hammer.getAreaPositions(stack, context.getClickedPos(), axis)) {
+                String descriptor = breaker.getModeDescriptor(stack);
+                if (!descriptor.isEmpty()) {
+                    player.sendOverlayMessage(Component.literal(upgrade.getDisplayName() + ": " + descriptor));
+                }
+
+                return;
+            }
+        }
+    }
+
+    default void useOnArea(UseOnContext context, Function<UseOnContext, InteractionResult> action, boolean horizontalOnly) {
+        if (!(context.getLevel() instanceof ServerLevel)) return;
+
+        ItemStack stack = context.getItemInHand();
+        MiningMode mode = stack.getOrDefault(ModDataComponents.MINING_MODE.get(), MiningMode.NORMAL);
+        if (mode == MiningMode.NORMAL) return;
+
+        List<ToolUpgrade> upgrades = stack.get(ModDataComponents.TOOL_UPGRADES.get());
+        if (upgrades == null) return;
+
+        for (ToolUpgrade upgrade : upgrades) {
+            if (!(upgrade instanceof BlockBreakingUpgrade breaker) || breaker.getMiningMode() != mode) continue;
+
+            List<BlockPos> positions;
+            if (upgrade instanceof HammerUpgrade hammer) {
+                Direction.Axis axis = horizontalOnly ? Direction.Axis.Y : context.getClickedFace().getAxis();
+                positions = hammer.getAreaPositions(stack, context.getClickedPos(), axis);
+            } else {
+                positions = breaker.getBlocksToUse(stack, context.getLevel(), context.getClickedPos(), context.getClickedFace());
+            }
+
+            for (BlockPos pos : positions) {
                 if (isDepleted(stack)) return;
 
                 // contexto novo por posição porque a checagem de ar acima da pá/enxada usa o clickedPos do contexto

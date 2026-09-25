@@ -2,12 +2,10 @@ package com.sckottch.scgtools.datagen;
 
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.loot.ModLootTables;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;

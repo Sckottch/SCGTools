@@ -10,6 +10,7 @@ import com.sckottch.scgtools.item.tools.upgrades.ModUpgrades;
 import com.sckottch.scgtools.recipe.ToolRepairRecipe;
 import com.sckottch.scgtools.utility.enums.ToolTier;
 import com.sckottch.scgtools.utility.tags.ModTags;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -19,10 +20,12 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -170,6 +173,16 @@ public class ModRecipeProvider extends RecipeProvider {
             .ingredient(Items.IRON_PICKAXE, 2)
             .save(this.output);
         
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModTags.Items.WEAPON)),
+            new ApplyUpgradeOperation(ModUpgrades.QUICK_DRAW.get())
+        )
+            .ingredient(Items.FEATHER, 4)
+            .ingredient(Items.STRING, 4)
+            .ingredient(Items.REDSTONE, 8)
+            .ingredient(Items.SUGAR, 8)
+            .save(this.output);
+        
         Ingredient efficiencyVBook = getEnchantedBook(Enchantments.EFFICIENCY, 5);
         Ingredient sharpnessVBook = getEnchantedBook(Enchantments.SHARPNESS, 5);
         new ToolForgeRecipeBuilder(
@@ -220,6 +233,34 @@ public class ModRecipeProvider extends RecipeProvider {
             ))
             .ingredient(Items.BONE_MEAL, 32)
             .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(ModItems.SWORD.get()),
+            new ApplyUpgradeOperation(ModUpgrades.TELEPORT.get())
+        )
+            .ingredient(Items.ENDER_PEARL, 8)
+            .ingredient(Items.CHORUS_FRUIT, 32)
+            .save(this.output);
+        
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(ModItems.HOE.get()),
+            new ApplyUpgradeOperation(ModUpgrades.FERTILIZER.get())
+        )
+            .ingredient(Items.BONE_MEAL, 32)
+            .ingredient(Items.GOLDEN_CARROT, 16)
+            .ingredient(Items.GOLDEN_APPLE, 8)
+            .ingredient(Items.GLISTERING_MELON_SLICE, 16)
+            .save(this.output);
+        
+        Ingredient speedIIPotion = getPotion(Potions.STRONG_SWIFTNESS);
+        new ToolForgeRecipeBuilder(
+            Ingredient.of(ModItems.SHOVEL.get()),
+            new ApplyUpgradeOperation(ModUpgrades.COMPACTOR.get())
+        )
+            .ingredient(Items.DIRT, 64)
+            .ingredient(new SizedIngredient(speedIIPotion, 3))
+            .ingredient(Items.LEATHER_BOOTS, 1)
+            .save(this.output);
     }
     
     private Ingredient getEnchantedBook(ResourceKey<Enchantment> enchantment, int level) {
@@ -228,6 +269,12 @@ public class ModRecipeProvider extends RecipeProvider {
         
         return DataComponentIngredient.of(
             false, DataComponents.STORED_ENCHANTMENTS, enchants.toImmutable(), Items.ENCHANTED_BOOK
+        ).getCustomIngredient().toVanilla();
+    }
+    
+    private Ingredient getPotion(Holder<Potion> potion) {
+        return DataComponentIngredient.of(
+            false, DataComponents.POTION_CONTENTS, new PotionContents(potion), Items.POTION
         ).getCustomIngredient().toVanilla();
     }
     

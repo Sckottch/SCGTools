@@ -36,7 +36,7 @@ public record TierUpOperation(ToolTier from, ToolTier to) implements ForgeOperat
 
         return tier.getId() < from.getId()
             ? UpgradeValidationResult.WRONG_TIER
-            : UpgradeValidationResult.ALREADY_APPLIED;
+            : UpgradeValidationResult.NOT_APPLICABLE;
     }
     
     @Override

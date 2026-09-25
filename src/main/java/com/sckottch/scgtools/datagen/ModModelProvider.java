@@ -6,13 +6,17 @@ import com.sckottch.scgtools.item.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmlandBlock;
 
 public class ModModelProvider extends ModelProvider {
     public ModModelProvider(PackOutput output) {
@@ -26,7 +30,22 @@ public class ModModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ModItems.DRACONIC_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
         
         blockModels.createTrivialBlock(ModBlocks.FORGE.get(), TexturedModel.CUBE_TOP_BOTTOM);
-        
+
+        blockModels.blockStateOutput.accept(
+            MultiVariantGenerator.dispatch(ModBlocks.FERTILIZED_FARMLAND.get()).with(
+                BlockModelGenerators.createEmptyOrFullDispatch(
+                    FarmlandBlock.MOISTURE, 7,
+                    BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(Blocks.FARMLAND, "_moist")),
+                    BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(Blocks.FARMLAND))
+                )
+            )
+        );
+
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(
+            ModBlocks.COMPACTED_EARTH.get(),
+            BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(Blocks.COARSE_DIRT))
+        ));
+
         setEvolvingModels(ModItems.PICKAXE.get(), itemModels);
         setEvolvingModels(ModItems.AXE.get(), itemModels);
         setEvolvingModels(ModItems.SWORD.get(), itemModels);

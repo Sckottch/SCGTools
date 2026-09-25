@@ -1,5 +1,6 @@
 package com.sckottch.scgtools.item.tools;
 
+import com.sckottch.scgtools.item.tools.upgrades.CompactorUpgrade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -52,6 +53,10 @@ public class EvolvingShovel extends ShovelItem implements MiningEvolvingTool {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
+        ItemStack stack = context.getItemInHand();
+        CompactorUpgrade compactor = CompactorUpgrade.active(stack);
+        if (compactor != null && !isDepleted(stack)) return compactor.tryCompact(context);
+
         InteractionResult result = super.useOn(context);
         if (result.consumesAction()) useOnArea(context, super::useOn, true);
         return result;

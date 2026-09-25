@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.Set;
 
@@ -16,6 +17,8 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         dropSelf(ModBlocks.FORGE.get());
+        dropOther(ModBlocks.FERTILIZED_FARMLAND.get(), Blocks.DIRT);
+        dropOther(ModBlocks.COMPACTED_EARTH.get(), Blocks.COARSE_DIRT);
     }
     
     @Override

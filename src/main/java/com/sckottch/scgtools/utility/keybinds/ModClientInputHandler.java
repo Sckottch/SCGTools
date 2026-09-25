@@ -3,7 +3,6 @@ package com.sckottch.scgtools.utility.keybinds;
 import com.sckottch.scgtools.SCGTools;
 import com.sckottch.scgtools.network.CycleUpgradeModePayload;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.vehicle.minecart.Minecart;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

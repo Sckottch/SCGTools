@@ -1,0 +1,26 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 4,
+      "ingredient": "minecraft:feather"
+    },
+    {
+      "count": 4,
+      "ingredient": "minecraft:string"
+    },
+    {
+      "count": 8,
+      "ingredient": "minecraft:redstone"
+    },
+    {
+      "count": 8,
+      "ingredient": "minecraft:sugar"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:quick_draw"
+  },
+  "tool": "#scgtools:weapon"
+}

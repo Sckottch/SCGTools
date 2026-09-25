@@ -9,7 +9,9 @@ public enum UpgradeValidationResult {
     WRONG_TOOL("wrong_tool"),
     WRONG_TIER("wrong_tier"),
     ALREADY_APPLIED("already_applied"),
-    NO_SLOTS("no_slots");
+    NO_SLOTS("no_slots"),
+    // a receita não vale para esta ferramenta, mas não há nada a avisar ao jogador
+    NOT_APPLICABLE(null);
 
     private final @Nullable Component message;
 
@@ -23,5 +25,9 @@ public enum UpgradeValidationResult {
 
     public boolean isOk() {
         return this == OK;
+    }
+
+    public boolean isReported() {
+        return message != null;
     }
 }

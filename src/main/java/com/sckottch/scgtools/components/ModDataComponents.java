@@ -45,6 +45,30 @@ public class ModDataComponents {
                 .ignoreSwapAnimation()
         );
     
+    public static final Supplier<DataComponentType<Boolean>> TELEPORT_ENABLED =
+        DATA_COMPONENTS.registerComponentType("teleport_enabled",
+            builder -> builder
+                .persistent(Codec.BOOL)
+                .networkSynchronized(ByteBufCodecs.BOOL)
+                .ignoreSwapAnimation()
+        );
+
+    public static final Supplier<DataComponentType<Integer>> FERTILIZER_RANGE =
+        DATA_COMPONENTS.registerComponentType("fertilizer_range",
+            builder -> builder
+                .persistent(Codec.INT)
+                .networkSynchronized(ByteBufCodecs.VAR_INT)
+                .ignoreSwapAnimation()
+        );
+
+    public static final Supplier<DataComponentType<Integer>> COMPACTOR_LEVEL =
+        DATA_COMPONENTS.registerComponentType("compactor_level",
+            builder -> builder
+                .persistent(Codec.INT)
+                .networkSynchronized(ByteBufCodecs.VAR_INT)
+                .ignoreSwapAnimation()
+        );
+
     public static final Supplier<DataComponentType<HammerMode>> HAMMER_MODE =
         DATA_COMPONENTS.registerComponentType("hammer_mode",
             builder -> builder

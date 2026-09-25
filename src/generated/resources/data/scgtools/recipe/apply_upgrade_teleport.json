@@ -1,0 +1,18 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 8,
+      "ingredient": "minecraft:ender_pearl"
+    },
+    {
+      "count": 32,
+      "ingredient": "minecraft:chorus_fruit"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:teleport"
+  },
+  "tool": "scgtools:sword"
+}

@@ -10,6 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
@@ -169,4 +170,6 @@ public interface EvolvingTool {
     default boolean isDepleted(ItemStack stack) {
         return stack.isDamageableItem() && stack.getDamageValue() >= stack.getMaxDamage();
     }
+
+    default void handleCycleKey(ServerPlayer player, ItemStack stack) {}
 }

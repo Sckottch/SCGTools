@@ -26,12 +26,24 @@ public class ModUpgrades {
     public static final Supplier<ToolUpgrade> HAMMER =
         UPGRADES.register("hammer", () -> new HammerUpgrade(ToolTier.IRON, "Hammer", ModTags.Items.MINING_TOOL));
     
+    public static final Supplier<ToolUpgrade> QUICK_DRAW =
+        UPGRADES.register("quick_draw", () -> new QuickDrawUpgrade(ToolTier.IRON, "Quick Draw", ModTags.Items.WEAPON));
+    
     public static final Supplier<ToolUpgrade> VEIN_MINE =
         UPGRADES.register("vein_mine", () -> new VeinMineUpgrade(ToolTier.DIAMOND, "Vein Mine", ItemTags.PICKAXES));
     
     public static final Supplier<ToolUpgrade> CHAINSAW =
         UPGRADES.register("chainsaw", () -> new ChainsawUpgrade(ToolTier.IRON, "Chainsaw", ItemTags.AXES));
     
+    public static final Supplier<ToolUpgrade> TELEPORT =
+        UPGRADES.register("teleport", () -> new TeleportUpgrade(ToolTier.DIAMOND, "Teleport", ItemTags.SWORDS));
+
+    public static final Supplier<ToolUpgrade> FERTILIZER =
+        UPGRADES.register("fertilizer", () -> new FertilizerUpgrade(ToolTier.IRON, "Fertilizer", ItemTags.HOES));
+
+    public static final Supplier<ToolUpgrade> COMPACTOR =
+        UPGRADES.register("compactor", () -> new CompactorUpgrade(ToolTier.IRON, "Compactor", ItemTags.SHOVELS));
+
     public static void register(IEventBus eventBus) {
         UPGRADES.register(eventBus);
     }

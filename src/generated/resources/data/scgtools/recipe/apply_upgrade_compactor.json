@@ -1,0 +1,30 @@
+{
+  "type": "scgtools:forge_tool",
+  "ingredients": [
+    {
+      "count": 64,
+      "ingredient": "minecraft:dirt"
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "neoforge:ingredient_type": "neoforge:components",
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "minecraft:strong_swiftness"
+          }
+        },
+        "items": "minecraft:potion"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": "minecraft:leather_boots"
+    }
+  ],
+  "operation": {
+    "type": "scgtools:apply_upgrade",
+    "upgrade": "scgtools:compactor"
+  },
+  "tool": "scgtools:shovel"
+}

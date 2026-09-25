@@ -13,6 +13,8 @@
     "item.scgtools.hoe": "Hoe",
 
     "block.scgtools.forge": "Forge",
+    "block.scgtools.fertilized_farmland": "Fertilized Farmland",
+    "block.scgtools.compacted_earth": "Compacted Earth",
 
     "gui.scgtools.forge.invalid": "Invalid Item",
     "gui.scgtools.forge.wrong_tool": "Invalid Tool",
@@ -23,5 +25,6 @@
     "key.scgtools.cycle_upgrade_mode": "Cycle Upgrade Mode",
 
     "gui.scgtools.jei.forge_recipes": "Forge Recipes",
-    "gui.scgtools.jei.forge_upgrades": "Forge Upgrades"
+    "gui.scgtools.jei.forge_upgrades": "Forge Upgrades",
+    "message.scgtools.teleport.no_pearl": "You need a ender pearl in hotbar to use teleport"
 }

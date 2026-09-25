@@ -22,7 +22,7 @@ displayName="${mod_name}" #mandatory
 authors="Sckottch"
 
 description='''
-Example mod description.
+Evolving tools that gain XP and level up as you use them. Upgrade them through five tiers, from Flint to Draconic, and add special upgrades at the Forge.
 '''
 
 #[[mixins]]

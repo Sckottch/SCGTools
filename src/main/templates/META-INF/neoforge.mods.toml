@@ -17,7 +17,7 @@ displayName="${mod_name}" #mandatory
 
 #logoFile="examplemod.png" #optional
 
-#credits="" #optional
+credits="Tool textures adapted from Tinkers' Construct by SlimeKnights (CC BY 3.0 / MIT). See LICENSE-TINKERS-CONSTRUCT." #optional
 
 authors="Sckottch"
 

@@ -60,32 +60,7 @@ public class ModRecipeSyncClient {
             else other++;
         }
 
-        SCGTools.LOGGER.info("Forge recipes received: {} simple, {} tool ({} tier-up, {} upgrade, {} other)",
+        SCGTools.LOGGER.debug("Forge recipes received: {} simple, {} tool ({} tier-up, {} upgrade, {} other)",
             simpleRecipes.size(), toolRecipes.size(), tierUp, upgrade, other);
-
-        for (RecipeHolder<SimpleForgeRecipe> holder : simpleRecipes) {
-            SimpleForgeRecipe recipe = holder.value();
-
-            SCGTools.LOGGER.info("  simple {} xp={} materials={}",
-                holder.id().identifier(), recipe.getXpCost(), recipe.getIngredients().size());
-        }
-
-        for (RecipeHolder<ToolForgeRecipe> holder : toolRecipes) {
-            ToolForgeRecipe recipe = holder.value();
-
-            SCGTools.LOGGER.info("  tool   {} [{}] xp={} materials={}",
-                holder.id().identifier(), describe(recipe.getOperation()),
-                recipe.getXpCost(), recipe.getIngredients().size());
-        }
-    }
-
-    private static String describe(ForgeOperation operation) {
-        return switch (operation) {
-            case TierUpOperation tierUp ->
-                "tier_up " + tierUp.from().getSerializedName() + "->" + tierUp.to().getSerializedName();
-            case ApplyUpgradeOperation apply ->
-                "upgrade " + apply.upgrade().getDisplayName();
-            default -> operation.getClass().getSimpleName();
-        };
     }
 }

@@ -1,25 +1,32 @@
+# SCG Tools
 
-Installation information
-=======
+Evolving tools that gain XP and level up as you use them. Upgrade them through five tiers,
+from Flint to Draconic, and add special upgrades at the Forge.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+## Features
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+- Evolving pickaxe, axe, sword, shovel and hoe that gain XP and levels with use.
+- Five tiers: Flint, Iron, Diamond, Netherite and Draconic.
+- The Forge, a crafting station for tier-ups and upgrades.
+- Upgrades: Mending, Enchantment I and II, Hammer, Vein Mine, Chainsaw, Quick Draw,
+  Teleport, Fertilizer and Compactor.
+- Sneak + right-click in the air switches the tool's mining mode; the `H` key cycles the
+  options of the active upgrade.
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+## Requirements
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+- Minecraft 26.2
+- NeoForge 26.2.0.84 or newer
+- JEI (optional) — shows Forge recipes and upgrades
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+## License
+
+SCG Tools is licensed under the MIT License. See [LICENSE](LICENSE).
+
+## Credits
+
+- The pickaxe, sword, shovel and axe textures are adapted from
+  [Tinkers' Construct](https://github.com/SlimeKnights/TinkersConstruct) by SlimeKnights.
+  Textures based on the Minecraft 1.7.10 version are used under
+  [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/); textures from later versions are used
+  under the MIT License. The full notice ships inside the mod jar as `LICENSE-TINKERS-CONSTRUCT`.
